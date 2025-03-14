@@ -758,7 +758,7 @@ createButton(frame, UDim2.new(0.5, 70, 1, -313), UDim2.new(0, 100, 0, 40), "Item
 
 end)
 
-createButton(frame, UDim2.new(0.5, -245, 1, -313), UDim2.new(0, 100, 0, 40), "Fast bandage(E) S00n", Color3.fromRGB(255, 0, 255), Color3.fromRGB(255, 255, 255), function()
+createButton(frame, UDim2.new(0.5, -245, 1, -313), UDim2.new(0, 100, 0, 40), "Fast bandage(E)", Color3.fromRGB(255, 0, 255), Color3.fromRGB(255, 255, 255), function()
 
 local args = {
 }
@@ -767,9 +767,26 @@ game["Workspace"]["Proffesional291"]["Bandage"]["Use"]:FireServer(unpack(args))
 
 end)
 
-createButton(frame, UDim2.new(0.5, -140, 1, -313), UDim2.new(0, 100, 0, 40), "Dyka ooo000", Color3.fromRGB(255, 0, 255), Color3.fromRGB(255, 255, 255), function()
+createButton(frame, UDim2.new(0.5, -140, 1, -313), UDim2.new(0, 100, 0, 40), "Platform", Color3.fromRGB(255, 0, 255), Color3.fromRGB(255, 255, 255), function()
 
+local player = game.Players.LocalPlayer
+    local character = player.Character or player.CharacterAdded:Wait()
+    local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
 
+    -- Поднимаем персонажа на 10 единиц вверх
+    humanoidRootPart.CFrame = humanoidRootPart.CFrame + Vector3.new(0, -10, 0)
+
+    -- Создаем платформу под персонажем
+    local platform = Instance.new("Part")
+    platform.Size = Vector3.new(5, 1, 5)
+    platform.Position = humanoidRootPart.Position - Vector3.new(0, -5, 0)
+    platform.Anchored = true
+    platform.CanCollide = true
+    platform.BrickColor = BrickColor.new("Dark green")
+    platform.Parent = workspace
+
+    -- Оповещение
+    showNotification("The character has been raised by 10 units, the platform has been created!")
 
 end)
 
@@ -1321,13 +1338,32 @@ if isMobile then
     mobileToggleButton = Instance.new("TextButton")
     mobileToggleButton.Size = UDim2.new(0, 50, 0, 50)
     mobileToggleButton.Position = UDim2.new(0, 10, 0.5, -25)
-    mobileToggleButton.BackgroundColor3 = Color3.fromRGB(114, 137, 218)
+    mobileToggleButton.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
     mobileToggleButton.Text = "Menu"
     mobileToggleButton.TextColor3 = Color3.new(1, 1, 1)
     mobileToggleButton.TextSize = 14
     mobileToggleButton.BorderSizePixel = 0
     mobileToggleButton.Visible = true
     mobileToggleButton.Parent = screenGui
+
+    -- Добавляем радужный градиент
+    local gradient = Instance.new("UIGradient")
+    gradient.Color = ColorSequence.new({
+        ColorSequenceKeypoint.new(0.0, Color3.fromRGB(255, 0, 0)), -- Красный
+        ColorSequenceKeypoint.new(0.16, Color3.fromRGB(255, 165, 0)), -- Оранжевый
+        ColorSequenceKeypoint.new(0.33, Color3.fromRGB(255, 255, 0)), -- Желтый
+        ColorSequenceKeypoint.new(0.5, Color3.fromRGB(0, 255, 0)), -- Зеленый
+        ColorSequenceKeypoint.new(0.66, Color3.fromRGB(0, 0, 255)), -- Синий
+        ColorSequenceKeypoint.new(0.83, Color3.fromRGB(75, 0, 130)), -- Индиго
+        ColorSequenceKeypoint.new(1.0, Color3.fromRGB(148, 0, 211)) -- Фиолетовый
+    })
+    gradient.Rotation = 90 -- Вертикальный градиент
+    gradient.Parent = mobileToggleButton
+
+    -- Анимация градиента
+    local tweenInfo = TweenInfo.new(3, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut, -1, true) -- Бесконечная анимация
+    local tween = TweenService:Create(gradient, tweenInfo, { Offset = Vector2.new(1, 0) })
+    tween:Play()
 
     -- Обработка нажатия на кнопку
     mobileToggleButton.MouseButton1Click:Connect(function()
