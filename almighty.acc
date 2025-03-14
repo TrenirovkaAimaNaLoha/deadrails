@@ -1,0 +1,2010 @@
+function rand_str(a)a=tonumber(a)or 1;local function b()return math.random()>0.5 and string.char(math.random(65,90))or string.char(math.random(97,122))end;local function c()return string.char(math.random(48,57))end;local d=""for e=1,a do d=d..(math.random()>0.5 and b()or c())end;return d end
+local DrawingSS={}local game=game;local b,c=game.GetService,game.FindFirstChild;local d=game.IsA;local e,f,g=Vector2.new,Instance.new,UDim2.new;local h=b(game,"Workspace")local i=c(h,"Camera")local j=b(game,"CoreGui")local k=setmetatable({Visible=false,Color=Color3.new(),Transparency=0,Remove=function()end},{__add=function(l,m)local n={}for o,p in next,l do n[o]=p end;for o,p in next,m do n[o]=p end;return n end})DrawingSS.new=function(q,r)r=r and d(r,"ScreenGui")and r or f("ScreenGui",j)or f("ScreenGui",j)if q=="Line"then local s={To=e(),From=e(),Thickness=1}+k;local t=f("Frame")t.AnchorPoint=e(0.5,0.5)t.BorderSizePixel=0;t.BackgroundColor3=s.Color;t.Visible=s.Visible;t.BackgroundTransparency=s.Transparency;t.Parent=r;return setmetatable({},{__newindex=function(self,u,v)if u=="To"then local w=v;local x=w-s.From;local y=(w+s.From)/2;local z=x.Magnitude;local A=math.atan2(x.Y,x.X)t.Position=UDim2.fromOffset(y.X,y.Y)t.Rotation=math.deg(A)t.Size=UDim2.fromOffset(z,s.Thickness)s.To=w end;if u=="From"then local B=v;local x=s.To-B;local y=(s.To+B)/2;local z=x.Magnitude;local A=math.atan2(x.Y,x.X)t.Position=UDim2.fromOffset(y.X,y.Y)t.Rotation=math.deg(A)t.Size=UDim2.fromOffset(z,s.Thickness)s.From=B end;if u=="Visible"then t.Visible=v;s.Visible=v end;if u=="Thickness"then v=v<1 and 1 or v;local x=s.To-s.From;local z=x.Magnitude;t.Size=UDim2.fromOffset(z,v)s.Thickness=v end;if u=="Transparency"then t.BackgroundTransparency=1-v;s.Transparency=v end;if u=="Color"then t.BackgroundColor3=v;s.Color=v end end,__index=function(self,u)if u=="Remove"then return function()t:Destroy()end end;return s[u]end})end;if q=="Circle"then local C={Radius=150,Filled=false,Position=e()}+k;local D=f("Frame")D.AnchorPoint=e(0.5,0.5)D.BorderSizePixel=0;D.BackgroundColor3=C.Color;D.Visible=C.Visible;D.BackgroundTransparency=C.Transparency;local E=f("UICorner",D)E.CornerRadius=UDim.new(1,0)D.Size=g(0,C.Radius,0,C.Radius)D.Parent=r;return setmetatable({},{__newindex=function(self,u,v)if u=="Radius"then D.Size=g(0,v,0,v)C.Radius=v end;if u=="Position"then D.Position=g(0,v.X,0,v.Y)C.Position=v end;if u=="Filled"then D.BackgroundTransparency=v==true and 0 or 0.8;C.Filled=v end;if u=="Color"then D.BackgroundColor3=v;C.Color=v end;if u=="Visible"then D.Visible=v;C.Visible=v end;if u=="Transparency"then end end,__index=function(self,u)if u=="Remove"then return function()D:Destroy()end end;return C[u]end})end;if q=="Text"then local F={Text="",Size=0,Center=false,Outline=false,OutlineColor=Color3.new(),Position=e()}+k;local G=f("TextLabel")G.AnchorPoint=e(0.5,0.5)G.BorderSizePixel=0;G.Size=g(0,200,0,50)G.Font=Enum.Font.SourceSans;G.TextSize=14;G.TextColor3=F.Color;G.Visible=F.Visible;G.BackgroundTransparency=1;G.TextTransparency=1-F.Transparency;G.Parent=r;return setmetatable({},{__newindex=function(self,u,v)if u=="Text"then G.Text=v;F.Text=v end;if u=="Position"then G.Position=g(0,v.X,0,v.Y)F.Position=v end;if u=="Size"then G.TextSize=v;F.Size=v end;if u=="Color"then G.TextColor3=v;F.Color=v end;if u=="Transparency"then G.TextTransparency=1-v;F.Transparency=v end;if u=="Visible"then G.Visible=v;F.Visible=v end;if u=="Center"then G.Position=v==true and g(0,i.ViewportSize.X/2,i.ViewportSize.Y/2,0)F.Center=v end end,__index=function(self,u)if u=="Remove"then return function()G:Destroy()end end;return F[u]end})end;if q=="Square"then local H={Thickness=1,Size=e(),Position=e(),Filled=false}+k;local I=f("Frame")I.AnchorPoint=e(0.5,0.5)I.BorderSizePixel=0;I.Visible=false;I.Parent=r;return setmetatable({},{__newindex=function(self,u,v)if u=="Size"then I.Size=g(0,v.X,0,v.Y)H.Text=v end;if u=="Position"then I.Position=g(0,v.X,0,v.Y)H.Position=v end;if u=="Size"then I.Size=g(0,v.X,0,v.Y)H.Size=v end;if u=="Color"then I.BackgroundColor3=v;H.Color=v end;if u=="Transparency"then I.BackgroundTransparency=1-v;H.Transparency=v end;if u=="Visible"then I.Visible=v;H.Visible=v end;if u=="Filed"then end end,__index=function(self,u)if u=="Remove"then return function()I:Destroy()end end;return H[u]end})end;if q=="Image"then local J={Data="rbxassetid://848623155",Size=e(),Position=e(),Rounding=0}local K=f("ImageLabel")K.AnchorPoint=e(0.5,0.5)K.BorderSizePixel=0;K.ScaleType=Enum.ScaleType.Stretch;K.Transparency=1;K.Visible=false;K.Parent=r;return setmetatable({},{__newindex=function(self,u,v)if u=="Size"then K.Size=g(0,v.X,0,v.Y)J.Text=v end;if u=="Position"then K.Position=g(0,v.X,0,v.Y)J.Position=v end;if u=="Size"then K.Size=g(0,v.X,0,v.Y)J.Size=v end;if u=="Transparency"then K.ImageTransparency=1-v;J.Transparency=v end;if u=="Visible"then K.Visible=v;J.Visible=v end;if u=="Color"then K.ImageColor3=v;K.Color=v end;if u=="Data"then K.Image=v;J.Data=v end end,__index=function(self,u)if u=="Remove"then return function()K:Destroy()end end;return K[u]end})end;if q=="Quad"then return setmetatable({},{})end end
+local Drawing = Drawing or DrawingSS
+local coreLocked=pcall(function()local a=game.CoreGui end)local guiPlacing;if not coreLocked then guiPlacing = game.Players.LocalPlayer.PlayerGui else guiPlacing = game.CoreGui end
+if _G.OptimizeMenu == nil then
+    _G.OptimizeMenu = false
+end
+local v = Color3.fromRGB(25, 33, 122)
+local f = Color3.fromRGB(0, 255, 0)
+local r = Color3.fromRGB(0, 0, 252)
+local gui = {
+    objs = {
+        Gui = Instance.new("ScreenGui", guiPlacing),
+    },
+    page = {nil, 1}
+}
+gui["pages"] = {}
+
+local UserInputService = game:GetService("UserInputService")
+local TweenService = game:GetService("TweenService")
+local player = game.Players.LocalPlayer
+local screenGui = Instance.new("ScreenGui", guiPlacing)
+screenGui.Name = "CustomMenu"
+
+-- Main frame
+local frame = Instance.new("Frame", screenGui)
+frame.Position = UDim2.new(0.5, -250, 0.5, -175)
+frame.Size = UDim2.new(0, 500, 0, 350)
+frame.BackgroundColor3 = Color3.fromRGB(25, 25, 35)
+frame.BackgroundTransparency = 0.5
+frame.BorderSizePixel = 0
+frame.ClipsDescendants = true
+
+-- Add corner radius
+local corner = Instance.new("UICorner", frame)
+corner.CornerRadius = UDim.new(0, 12)
+
+--[[] Add drop shadow
+local shadow = Instance.new("ImageLabel", frame)
+shadow.AnchorPoint = Vector2.new(0.5, 0.5)
+shadow.BackgroundTransparency = 1
+shadow.Position = UDim2.new(0.5, 0, 0.5, 0)
+shadow.Size = UDim2.new(1, 45, 1, 45)
+shadow.ZIndex = 0
+shadow.Image = "rbxassetid://7912133321"
+shadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+shadow.ImageTransparency = 0.5
+shadow.ScaleType = Enum.ScaleType.Slice
+shadow.SliceCenter = Rect.new(45, 45, 45, 45)]]
+
+-- Gradient background (shimmering gray)
+local uiGradient = Instance.new("UIGradient", frame)
+uiGradient.Color = ColorSequence.new{
+    ColorSequenceKeypoint.new(0.0, Color3.fromRGB(111, 111, 111)),
+    ColorSequenceKeypoint.new(0.25, Color3.fromRGB(155, 155, 155)),
+    ColorSequenceKeypoint.new(0.5, Color3.fromRGB(222, 222, 222)),
+    ColorSequenceKeypoint.new(0.75, Color3.fromRGB(155, 155, 155)),
+    ColorSequenceKeypoint.new(1.0, Color3.fromRGB(111, 111, 111))
+}
+uiGradient.Rotation = 90
+uiGradient.Offset = Vector2.new(0, 0)
+
+-- Animate background gradient
+local function animateBackground()
+    local tweenInfo = TweenInfo.new(3.5, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut, 0, false, 0)
+    local gradientTween = TweenService:Create(uiGradient, tweenInfo, {Offset = Vector2.new(0, 1)})
+    gradientTween.Completed:Connect(function()
+        uiGradient.Offset = Vector2.new(0, -1)
+        gradientTween:Play()
+    end)
+    gradientTween:Play()
+end
+
+-- Title label
+local titleLabel = Instance.new("TextLabel", frame)
+titleLabel.Position = UDim2.new(0.5, -120, 0, -10)
+titleLabel.Size = UDim2.new(0, 150, 0, 50)
+titleLabel.Text = "Dead Rails by ilyatracher v0.1 (Almighty.acc)"        --"Almighty.acc"
+titleLabel.BackgroundTransparency = 1
+titleLabel.Font = Enum.Font.Fantasy
+titleLabel.TextColor3 = Color3.fromRGB(225, 255, 255)
+titleLabel.TextStrokeTransparency = 0.5
+titleLabel.TextSize = 24
+
+-- Rainbow line
+local rainbowLine = Instance.new("Frame", frame)
+rainbowLine.Position = UDim2.new(0.5, -250, 0, 30)
+rainbowLine.Size = UDim2.new(0, 500, 0, 5)
+rainbowLine.BorderSizePixel = 0
+
+local rainbowGradient = Instance.new("UIGradient", rainbowLine)
+rainbowGradient.Color = ColorSequence.new{
+    ColorSequenceKeypoint.new(0.00, Color3.fromRGB(255, 0, 0)),
+    ColorSequenceKeypoint.new(0.14, Color3.fromRGB(255, 127, 0)),
+    ColorSequenceKeypoint.new(0.28, Color3.fromRGB(255, 255, 0)),
+    ColorSequenceKeypoint.new(0.42, Color3.fromRGB(0, 255, 0)),
+    ColorSequenceKeypoint.new(0.56, Color3.fromRGB(0, 0, 255)),
+    ColorSequenceKeypoint.new(0.70, Color3.fromRGB(75, 0, 130)),
+    ColorSequenceKeypoint.new(0.84, Color3.fromRGB(148, 0, 211)),
+    ColorSequenceKeypoint.new(1.00, Color3.fromRGB(255, 0, 0))
+}
+rainbowGradient.Rotation = 0
+rainbowGradient.Offset = Vector2.new(0, 0)
+
+-- Animate rainbow line
+local function animateRainbow()
+    local tweenInfo = TweenInfo.new(2.2, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut, 0, false, 0)
+    local rainbowTween = TweenService:Create(rainbowGradient, tweenInfo, {Offset = Vector2.new(1, 0)})
+    rainbowTween.Completed:Connect(function()
+        rainbowGradient.Offset = Vector2.new(-1, 0)
+        rainbowTween:Play()
+    end)
+    rainbowTween:Play()
+end
+
+
+-- Create a button with configurable properties
+local function createButton(parent, position, size, text, bgColor, textColor, callback)
+    -- Создание кнопки
+    local button = Instance.new("TextButton", parent)
+    button.Position = position
+    button.Size = size
+    button.Text = text
+    button.BackgroundColor3 = bgColor
+    button.Font = Enum.Font.Fantasy
+    button.TextColor3 = textColor
+    button.BackgroundTransparency = 0.5
+    button.TextSize = 16
+    button.AutoButtonColor = false -- Отключаем автоматическое изменение цвета
+    button.ZIndex = 2
+
+    -- Создание эффекта затемнения для кнопки
+    local overlay = Instance.new("Frame", button)
+    overlay.Size = UDim2.new(1, 0, 1, 0)
+    overlay.BackgroundColor3 = Color3.new(0, 0, 0)
+    overlay.BackgroundTransparency = 0.5
+    overlay.ZIndex = 3
+    overlay.Visible = false
+
+    -- Переменные для управления анимациями
+    local currentTween
+
+    -- Функция для остановки текущей анимации
+    local function stopCurrentTween()
+        if currentTween then
+            currentTween:Cancel()
+            currentTween = nil
+        end
+    end
+
+    -- Анимация при наведении
+    button.MouseEnter:Connect(function()
+        stopCurrentTween()
+        overlay.Visible = true
+        local tweenInfo = TweenInfo.new(0.7, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+        currentTween = TweenService:Create(overlay, tweenInfo, {BackgroundTransparency = 0.8})
+        currentTween:Play()
+    end)
+
+    -- Анимация при уходе курсора
+    button.MouseLeave:Connect(function()
+        stopCurrentTween()
+        local tweenInfo = TweenInfo.new(0.8, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+        currentTween = TweenService:Create(overlay, tweenInfo, {BackgroundTransparency = 0.9})
+        currentTween:Play()
+        currentTween.Completed:Connect(function()
+            overlay.Visible = false
+            currentTween = nil
+        end)
+    end)
+
+    -- Анимация при нажатии
+    button.MouseButton1Down:Connect(function()
+        stopCurrentTween()
+        local tweenInfo = TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+        currentTween = TweenService:Create(button, tweenInfo, {Size = size - UDim2.new(0, -2, 0, 2)})
+        currentTween:Play()
+    end)
+
+    -- Анимация при отпускании
+    button.MouseButton1Up:Connect(function()
+        stopCurrentTween()
+        local tweenInfo = TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+        currentTween = TweenService:Create(button, tweenInfo, {Size = size})
+        currentTween:Play()
+        currentTween.Completed:Connect(function()
+            currentTween = nil
+        end)
+    end)
+
+    -- Обработчик клика
+    button.MouseButton1Click:Connect(callback)
+
+    return button
+end
+
+--createButton(frame, UDim2.new(0.5, -220, 1, -60), UDim2.new(0, 100, 0, 40), "Granny", Color3.fromRGB(114, 137, 218), Color3.fromRGB(255, 255, 255), function()
+    
+
+
+--end)
+
+-- Create the description button and description menu
+local descriptionFrame = Instance.new("Frame", screenGui)
+descriptionFrame.Position = UDim2.new(0.5, -100, 0.5, -50)
+descriptionFrame.Size = UDim2.new(0, 200, 0, 100)
+descriptionFrame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+descriptionFrame.BackgroundTransparency = 0.5
+descriptionFrame.BorderSizePixel = 0
+descriptionFrame.Visible = false
+
+local descriptionText = Instance.new("TextLabel", descriptionFrame)
+descriptionText.Position = UDim2.new(0.5, -95, 0.5, -65)
+descriptionText.Size = UDim2.new(0, 190, 0, 90)
+descriptionText.Text = "ScriptMenu by IlyaTracher v0.1"
+descriptionText.BackgroundTransparency = 1
+descriptionText.Font = Enum.Font.Fantasy
+descriptionText.TextColor3 = Color3.fromRGB(225, 255, 255)
+descriptionText.TextStrokeTransparency = 0.5
+descriptionText.TextSize = 20
+descriptionText.TextWrapped = true
+
+-- Add close button to description menu
+createButton(descriptionFrame, UDim2.new(0.5, -50, 1, -40), UDim2.new(0, 100, 0, 30), "Close", Color3.fromRGB(255, 165, 0), Color3.fromRGB(255, 255, 255), function()
+    descriptionFrame.Visible = false
+end)
+
+-- Add effects to the description menu
+local descriptionGradient = Instance.new("UIGradient", descriptionFrame)
+descriptionGradient.Color = ColorSequence.new{
+    ColorSequenceKeypoint.new(0.00, Color3.fromRGB(0, 0, 0)),
+    ColorSequenceKeypoint.new(0.50, Color3.fromRGB(100, 100, 100)),
+    ColorSequenceKeypoint.new(1.00, Color3.fromRGB(0, 0, 0))
+}
+descriptionGradient.Rotation = 90
+
+-- Make the description frame draggable
+local function makeDraggable(frame)
+    local dragging
+    local dragInput
+    local dragStart
+    local startPos
+
+    local function update(input)
+        local delta = input.Position - dragStart
+        frame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+    end
+
+    frame.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            dragging = true
+            dragStart = input.Position
+            startPos = frame.Position
+            
+            input.Changed:Connect(function()
+                if input.UserInputState == Enum.UserInputState.End then
+                    dragging = false
+                end
+            end)
+        end
+    end)
+
+    frame.InputChanged:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseMovement then
+            dragInput = input
+        end
+    end)
+
+    UserInputService.InputChanged:Connect(function(input)
+        if dragging and input == dragInput then
+            update(input)
+        end
+    end)
+end
+
+makeDraggable(descriptionFrame)
+
+createButton(frame, UDim2.new(0.5, -140, 1, -45), UDim2.new(0, 100, 0, 40), "Description", Color3.fromRGB(255, 165, 0), Color3.fromRGB(255, 255, 255), function()
+    descriptionFrame.Visible = not descriptionFrame.Visible
+end)
+
+-- Создаем новый фрейм для слайдеров
+local colorSliderFrame = Instance.new("Frame", screenGui)
+colorSliderFrame.Position = UDim2.new(0.5, -100, 0.5, -75)
+colorSliderFrame.Size = UDim2.new(0, 200, 0, 185)
+colorSliderFrame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+colorSliderFrame.BackgroundTransparency = 0.5
+colorSliderFrame.BorderSizePixel = 0
+colorSliderFrame.Visible = false
+
+-- Текст для описания
+local colorSliderText = Instance.new("TextLabel", colorSliderFrame)
+colorSliderText.Position = UDim2.new(0.5, -95, 0, 10)
+colorSliderText.Size = UDim2.new(0, 190, 0, 30)
+colorSliderText.Text = "Adjust Background Color (RGB)"
+colorSliderText.BackgroundTransparency = 1
+colorSliderText.Font = Enum.Font.Fantasy
+colorSliderText.TextColor3 = Color3.fromRGB(225, 255, 255)
+colorSliderText.TextStrokeTransparency = 0.5
+colorSliderText.TextSize = 18
+colorSliderText.TextWrapped = true
+
+local function createColorSlider(parent, yPosition, label, defaultColor)
+    local sliderFrame = Instance.new("Frame")
+    sliderFrame.Name = "SliderFrame"
+    sliderFrame.Position = UDim2.new(0.5, -95, 0, yPosition)
+    sliderFrame.Size = UDim2.new(0, 190, 0, 30)
+    sliderFrame.BackgroundTransparency = 1
+    sliderFrame.Parent = parent
+
+    local sliderLabel = Instance.new("TextLabel")
+    sliderLabel.Position = UDim2.new(0, 0, 0, 0)
+    sliderLabel.Size = UDim2.new(0, 50, 0, 30)
+    sliderLabel.Text = label
+    sliderLabel.BackgroundTransparency = 1
+    sliderLabel.Font = Enum.Font.Fantasy
+    sliderLabel.TextColor3 = Color3.fromRGB(225, 255, 255)
+    sliderLabel.TextSize = 14
+    sliderLabel.Parent = sliderFrame
+
+    local slider = Instance.new("Frame")
+    slider.Name = "SliderBar"
+    slider.Position = UDim2.new(0, 60, 0.5, -5)
+    slider.Size = UDim2.new(0, 120, 0, 10)
+    slider.BackgroundColor3 = Color3.fromRGB(200, 200, 200)
+    slider.BackgroundTransparency = 0.5
+    slider.BorderSizePixel = 0
+    slider.Parent = sliderFrame
+
+    local sliderHandle = Instance.new("Frame")
+    sliderHandle.Name = "sliderHandle"
+    sliderHandle.Size = UDim2.new(0, 15, 0, 15)
+    sliderHandle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    sliderHandle.BackgroundTransparency = 0.5
+    sliderHandle.BorderSizePixel = 0
+    sliderHandle.AnchorPoint = Vector2.new(0.5, 0.5)
+    sliderHandle.Position = UDim2.new(defaultColor / 255, 0, 0.5, 0)
+    sliderHandle.Parent = slider
+
+    -- Переменные для управления слайдером
+    local isDragging = false
+    local dragConnection
+    local inputEndedConnection
+
+    sliderHandle.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            isDragging = true
+        end
+    end)
+
+    slider.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            isDragging = true
+            -- Обновляем позицию слайдера при клике на полосу
+            local relativeX = input.Position.X - slider.AbsolutePosition.X
+            local percentage = math.clamp(relativeX / slider.AbsoluteSize.X, 0, 1)
+            sliderHandle.Position = UDim2.new(percentage, 0, 0.5, 0)
+            updateBackgroundColor()
+        end
+    end)
+
+    -- Обработка перетаскивания
+    dragConnection = UserInputService.InputChanged:Connect(function(input)
+        if isDragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+            local relativeX = input.Position.X - slider.AbsolutePosition.X
+            local percentage = math.clamp(relativeX / slider.AbsoluteSize.X, 0, 1)
+            sliderHandle.Position = UDim2.new(percentage, 0, 0.5, 0)
+            updateBackgroundColor()
+        end
+    end)
+
+    -- Окончание перетаскивания
+    inputEndedConnection = UserInputService.InputEnded:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            isDragging = false
+        end
+    end)
+
+    return sliderHandle
+end
+
+-- Создаем слайдеры для R, G, B
+local redSlider = createColorSlider(colorSliderFrame, 40, "Red", 128)
+local greenSlider = createColorSlider(colorSliderFrame, 80, "Green", 128)
+local blueSlider = createColorSlider(colorSliderFrame, 120, "Blue", 128)
+
+-- Функция для обновления цвета фона
+local function updateBackgroundColor()
+    local r = redSlider.Position.X.Scale * 255
+    local g = greenSlider.Position.X.Scale * 255
+    local b = blueSlider.Position.X.Scale * 255
+    local newColor = Color3.fromRGB(r, g, b)
+    uiGradient.Color = ColorSequence.new{
+        ColorSequenceKeypoint.new(0.0, newColor),
+        ColorSequenceKeypoint.new(0.25, newColor),
+        ColorSequenceKeypoint.new(0.5, newColor),
+        ColorSequenceKeypoint.new(0.75, newColor),
+        ColorSequenceKeypoint.new(1.0, newColor)
+    }
+end
+
+-- Подключаем обновление цвета при изменении слайдеров
+redSlider.Changed:Connect(updateBackgroundColor)
+greenSlider.Changed:Connect(updateBackgroundColor)
+blueSlider.Changed:Connect(updateBackgroundColor)
+
+makeDraggable(frame)
+--makeDraggable(colorSliderFrame)
+
+-- Добавляем кнопку для открытия меню слайдеров
+createButton(frame, UDim2.new(0.5, -35, 1, -45), UDim2.new(0, 100, 0, 40), "Change Color", Color3.fromRGB(0, 128, 128), Color3.fromRGB(255, 255, 255), function()
+    colorSliderFrame.Visible = not colorSliderFrame.Visible
+end)
+
+-- Добавляем кнопку закрытия для меню слайдеров
+createButton(colorSliderFrame, UDim2.new(0.5, -50, 1, -33), UDim2.new(0, 100, 0, 30), "Close", Color3.fromRGB(0, 128, 128), Color3.fromRGB(255, 255, 255), function()
+    colorSliderFrame.Visible = false
+end)
+
+-- Listen for the Insert key press to toggle the menu
+UserInputService.InputBegan:Connect(function(input)
+    if input.KeyCode == Enum.KeyCode.Insert then
+        frame.Visible = not frame.Visible
+    end
+end)
+
+-- Make the main frame draggable
+local draggingMainFrame
+frame.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 and not draggingSlider then
+        draggingMainFrame = true
+        dragStart = input.Position
+        startPos = frame.Position
+        
+        input.Changed:Connect(function()
+            if input.UserInputState == Enum.UserInputState.End then
+                draggingMainFrame = false
+            end
+        end)
+    end
+end)
+
+frame.InputChanged:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseMovement then
+        dragInput = input
+    end
+end)
+
+UserInputService.InputChanged:Connect(function(input)
+    if draggingMainFrame and input == dragInput then
+        local delta = input.Position - dragStart
+        frame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+    end
+end)
+
+local workspace = game:GetService("Workspace")
+local RunService = game:GetService("RunService")
+local Players = game:GetService("Players")
+
+
+
+-- Constants and Configuration
+local ESP_CONFIG = {
+    HIGHLIGHT_COLOR = Color3.new(1, 0, 0),
+    TEXT_COLOR = Color3.new(1, 0, 0),
+    BILLBOARD_SIZE = UDim2.new(0, 200, 0, 50),
+    BILLBOARD_OFFSET = Vector3.new(0, 2, 0),
+    UPDATE_INTERVAL = 0.1 -- Interval for checking traps
+}
+
+-- Utility Functions
+local function showNotification(message)
+    if not message then return end
+    
+    -- Create screen GUI for notification
+    local screenGui = Instance.new("ScreenGui")
+    screenGui.Name = "NotificationGui"
+    
+    local notificationFrame = Instance.new("Frame")
+    notificationFrame.Size = UDim2.new(0, 200, 0, 50)
+    notificationFrame.Position = UDim2.new(0.5, -100, 0.8, 0)
+    notificationFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    notificationFrame.BorderSizePixel = 0
+    
+    local UICorner = Instance.new("UICorner")
+    UICorner.CornerRadius = UDim.new(0, 8)
+    UICorner.Parent = notificationFrame
+    
+    local notificationText = Instance.new("TextLabel")
+    notificationText.Size = UDim2.new(1, -20, 1, 0)
+    notificationText.Position = UDim2.new(0, 10, 0, 0)
+    notificationText.BackgroundTransparency = 1
+    notificationText.Text = message
+    notificationText.TextColor3 = Color3.new(1, 1, 1)
+    notificationText.TextWrapped = true
+    notificationText.Font = Enum.Font.Gotham
+    notificationText.TextSize = 14
+    
+    notificationText.Parent = notificationFrame
+    notificationFrame.Parent = screenGui
+    screenGui.Parent = Players.LocalPlayer:WaitForChild("PlayerGui")
+    
+    -- Animate and remove notification
+    game:GetService("TweenService"):Create(
+        notificationFrame,
+        TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+        {Position = UDim2.new(0.5, -100, 0.75, 0)}
+    ):Play()
+    
+    delay(3, function()
+        game:GetService("TweenService"):Create(
+            notificationFrame,
+            TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.In),
+            {Position = UDim2.new(0.5, -100, 1.1, 0)}
+        ):Play()
+        wait(0.5)
+        screenGui:Destroy()
+    end)
+end
+
+local function findObjectByPath(path)
+    local parts = string.split(path, ".")
+    local current = game
+    for i, part in ipairs(parts) do
+        if current then
+            current = current:FindFirstChild(part)
+            if not current then
+                showNotification("Object not found: " .. path .. " at part: " .. part)
+                return nil
+            end
+        else
+            showNotification("Object not found: " .. path .. " because parent is nil at part: " .. part)
+            return nil
+        end
+    end
+    return current
+end
+
+local mouse = player:GetMouse()
+
+local function deleteItem()
+    -- Создаем луч от позиции камеры в направлении взгляда
+    local ray = Ray.new(player.Character.Head.Position, (mouse.Hit.p - player.Character.Head.Position).unit * 300)
+    local hitPart, hitPosition = workspace:FindPartOnRay(ray, player.Character)
+
+    if hitPart then
+        -- Удаляем найденный предмет
+        hitPart:Destroy()
+        showNotification("Предмет удален:", hitPart.Name)
+    else
+        showNotification("Нет предмета для удаления")
+    end
+end
+
+-- Variables
+local players = game:GetService("Players")
+local localPlayer = players.LocalPlayer
+local camera = game:GetService("Workspace").CurrentCamera
+local runService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
+
+-- GUI для слайдера
+local colorSliderFrameESP = Instance.new("Frame", screenGui)
+colorSliderFrameESP.Position = UDim2.new(0.5, -100, 0.5, -75)
+colorSliderFrameESP.Size = UDim2.new(0, 200, 0, 185)
+colorSliderFrameESP.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+colorSliderFrameESP.BackgroundTransparency = 0.5
+colorSliderFrameESP.BorderSizePixel = 0
+colorSliderFrameESP.Visible = false
+
+local colorSliderTextESP = Instance.new("TextLabel", colorSliderFrameESP)
+colorSliderTextESP.Position = UDim2.new(0.5, -95, 0, 10)
+colorSliderTextESP.Size = UDim2.new(0, 190, 0, 30)
+colorSliderTextESP.Text = "Adjust ESP Color (RGB)"
+colorSliderTextESP.BackgroundTransparency = 1
+colorSliderTextESP.Font = Enum.Font.Fantasy
+colorSliderTextESP.TextColor3 = Color3.fromRGB(225, 255, 255)
+colorSliderTextESP.TextStrokeTransparency = 0.5
+colorSliderTextESP.TextSize = 18
+colorSliderTextESP.TextWrapped = true
+
+-- Слайдеры для изменения цвета ESP
+--local redSlider = createColorSlider(colorSliderFrame, 40, "Red", 255)
+--local greenSlider = createColorSlider(colorSliderFrame, 80, "Green", 0)
+--local blueSlider = createColorSlider(colorSliderFrame, 120, "Blue", 0)
+
+-- Функция для создания слайдера
+local function createColorSlider(parent, yPosition, label, defaultColor)
+    local sliderFrame = Instance.new("Frame", parent)
+    sliderFrame.Position = UDim2.new(0.5, -95, 0, yPosition)
+    sliderFrame.Size = UDim2.new(0, 190, 0, 30)
+    sliderFrame.BackgroundTransparency = 1
+    sliderFrame.BorderSizePixel = 0
+
+    local sliderLabel = Instance.new("TextLabel", sliderFrame)
+    sliderLabel.Position = UDim2.new(0, 0, 0, 0)
+    sliderLabel.Size = UDim2.new(0, 50, 0, 30)
+    sliderLabel.Text = label
+    sliderLabel.BackgroundTransparency = 1
+    sliderLabel.Font = Enum.Font.Fantasy
+    sliderLabel.TextColor3 = Color3.fromRGB(225, 255, 255)
+    sliderLabel.TextSize = 14
+
+    local slider = Instance.new("Frame", sliderFrame)
+    slider.Position = UDim2.new(0, 60, 0.5, -5)
+    slider.Size = UDim2.new(0, 120, 0, 10)
+    slider.BackgroundColor3 = Color3.fromRGB(200, 200, 200)
+    slider.BackgroundTransparency = 0.5
+    slider.BorderSizePixel = 0
+
+    local sliderHandle = Instance.new("Frame", slider)
+    sliderHandle.Position = UDim2.new(0, 0, -0.5, 0)
+    sliderHandle.Size = UDim2.new(0, 15, 0, 15)
+    sliderHandle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    sliderHandle.BackgroundTransparency = 0.5
+    sliderHandle.BorderSizePixel = 0
+    sliderHandle.AnchorPoint = Vector2.new(0.5, 0.5)
+    sliderHandle.Position = UDim2.new(defaultColor / 255, 0, 0.5, 0)
+
+    local draggingSlider = false
+
+    sliderHandle.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            draggingSlider = true
+            input:Capture()
+        end
+    end)
+
+    sliderHandle.InputChanged:Connect(function(input)
+        if draggingSlider and input.UserInputType == Enum.UserInputType.MouseMovement then
+            local scale = (input.Position.X - slider.AbsolutePosition.X) / slider.AbsoluteSize.X
+            scale = math.clamp(scale, 0, 1)
+            sliderHandle.Position = UDim2.new(scale, 0, 0.5, 0)
+            return scale * 255
+        end
+    end)
+
+    UserInputService.InputChanged:Connect(function(input)
+        if draggingSlider and input.UserInputType == Enum.UserInputType.MouseMovement then
+            local scale = (input.Position.X - slider.AbsolutePosition.X) / slider.AbsoluteSize.X
+            scale = math.clamp(scale, 0, 1)
+            sliderHandle.Position = UDim2.new(scale, 0, 0.5, 0)
+            return scale * 255
+        end
+    end)
+
+    UserInputService.InputEnded:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            draggingSlider = false
+        end
+    end)
+
+    return sliderHandle
+end
+
+local players = game:GetService("Players")
+local localPlayer = players.LocalPlayer
+local mouse = localPlayer:GetMouse()
+local UIS = game:GetService("UserInputService")
+local camera = game.Workspace.CurrentCamera
+local aimbotActive = false
+local lockOnPlayer = nil -- Игрок, на которого происходит нацеливание (локирование)
+
+local defaultFov = 100 -- Стандартное поле зрения камеры
+local lockedFov = 80 -- Поле зрения при нацеливании
+
+-- Функция для нахождения ближайшего врага
+local function getNearestEnemy()
+    local closestPlayer = nil
+    local shortestDistance = math.huge
+
+    for _, player in pairs(players:GetPlayers()) do
+        if player ~= localPlayer and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+            local distance = (camera.CFrame.Position - player.Character.HumanoidRootPart.Position).Magnitude
+            if distance < shortestDistance then
+                closestPlayer = player
+                shortestDistance = distance
+            end
+        end
+    end
+    return closestPlayer
+end
+
+-- Функция для аимбота
+local function aimbot()
+    if aimbotActive and lockOnPlayer then
+        local target = lockOnPlayer
+        if target and target.Character and target.Character:FindFirstChild("HumanoidRootPart") then
+            local targetPosition = target.Character.HumanoidRootPart.Position
+            local direction = (targetPosition - camera.CFrame.Position).unit
+            camera.CFrame = CFrame.new(camera.CFrame.Position, camera.CFrame.Position + direction)
+        end
+    end
+end
+
+-- Подключаем обновление цвета при изменении слайдеров
+local redSlider1 = createColorSlider(colorSliderFrameESP, 40, "Red", 255)
+local greenSlider1 = createColorSlider(colorSliderFrameESP, 80, "Green", 0)
+local blueSlider1 = createColorSlider(colorSliderFrameESP, 120, "Blue", 0)
+
+redSlider1.Changed:Connect(updateESPColor)
+greenSlider1.Changed:Connect(updateESPColor)
+blueSlider1.Changed:Connect(updateESPColor)
+
+createButton(frame, UDim2.new(0.5, 70, 1, -270), UDim2.new(0, 100, 0, 40), "Mouse lock(I)", Color3.fromRGB(0, 128, 128), Color3.fromRGB(255, 255, 255), function()
+    aimbotActive = not aimbotActive -- Переключаем активность аимбота
+    if aimbotActive then
+        lockOnPlayer = getNearestEnemy() -- При активации аимбота мы находим ближайшего врага
+    else
+        lockOnPlayer = nil -- При деактивации аимбота снимаем блокировку
+    end
+end)
+
+
+UIS.InputBegan:Connect(function(input, gameProcessed)
+    if gameProcessed then return end
+    if input.UserInputType == Enum.UserInputType.Keyboard and input.KeyCode == Enum.KeyCode.I then
+        aimbotActive = not aimbotActive -- Переключаем активность аимбота
+    end
+end)
+
+-- Слушаем нажатие клавиши F для активации аимбота
+UIS.InputBegan:Connect(function(input, gameProcessed)
+    if gameProcessed then return end
+    if input.UserInputType == Enum.UserInputType.Keyboard and input.KeyCode == Enum.KeyCode.F then
+        aimbotActive = not aimbotActive -- Переключаем активность аимбота
+        if aimbotActive then
+            lockOnPlayer = getNearestEnemy() -- При активации аимбота мы находим ближайшего врага
+        else
+            lockOnPlayer = nil -- При деактивации аимбота снимаем блокировку
+        end
+    end
+end)
+
+-- Циклично обновляем аимбот и нацеливаемся на игрока
+game:GetService("RunService").Heartbeat:Connect(function()
+    if lockOnPlayer then
+        -- Если мы нацелены на игрока, изменяем фов
+        camera.FieldOfView = lockedFov
+    else
+        -- В противном случае восстанавливаем стандартный фов
+        camera.FieldOfView = defaultFov
+    end
+
+    -- Обновляем аимбот (если он активен)
+    aimbot()
+end)
+
+createButton(frame, UDim2.new(0.5, 175, 1, -313), UDim2.new(0, 75, 0, 40), "IZZXC222", Color3.fromRGB(255, 0, 255), Color3.fromRGB(255, 255, 255), function()
+
+
+
+end)
+
+createButton(frame, UDim2.new(0.5, 70, 1, -313), UDim2.new(0, 100, 0, 40), "Item zzzzz", Color3.fromRGB(255, 0, 255), Color3.fromRGB(255, 255, 255), function()
+
+
+
+end)
+
+createButton(frame, UDim2.new(0.5, -245, 1, -313), UDim2.new(0, 100, 0, 40), "Fast bandage(E) S00n", Color3.fromRGB(255, 0, 255), Color3.fromRGB(255, 255, 255), function()
+
+local args = {
+}
+ 
+game["Workspace"]["Proffesional291"]["Bandage"]["Use"]:FireServer(unpack(args))
+
+end)
+
+createButton(frame, UDim2.new(0.5, -140, 1, -313), UDim2.new(0, 100, 0, 40), "Dyka ooo000", Color3.fromRGB(255, 0, 255), Color3.fromRGB(255, 255, 255), function()
+
+
+
+end)
+
+createButton(frame, UDim2.new(0.5, -35, 1, -313), UDim2.new(0, 100, 0, 40), "Item esp", Color3.fromRGB(255, 0, 255), Color3.fromRGB(255, 255, 255), function() -- посл столбик 3 ядра или 7
+
+local Workspace = game:GetService("Workspace")
+local RunService = game:GetService("RunService")
+
+-- Конфигурация ESP
+local ESP_CONFIG = {
+    DEFAULT_COLOR = Color3.fromRGB(145, 145, 145), -- Серый цвет по умолчанию
+    TEXT_COLOR = Color3.fromRGB(255, 255, 255), -- Белый цвет текста
+    TEXT_STROKE_COLOR = Color3.fromRGB(0, 0, 0), -- Черный обводка текста
+    TEXT_SIZE = 15, -- Размер текста
+    BILLBOARD_OFFSET = Vector3.new(0, -2, 0) -- Смещение BillboardGui над объектом
+}
+
+-- Цвета для bald и goldbar
+local SPECIAL_COLORS = {
+    bald = Color3.fromRGB(255, 0, 0), -- Красный для bald
+    goldbar = Color3.fromRGB(255, 215, 0) -- Золотой для goldbar
+}
+
+-- Хранилище для ESP объектов
+local espObjects = {}
+
+-- Функция для создания Highlight и текста
+local function createESP(item)
+    -- Проверяем, что объект существует и его можно выделить
+    if not item:IsA("BasePart") and not item:IsA("Model") then
+        return -- Пропускаем объекты, которые не являются частями или моделями
+    end
+
+    -- Определяем цвет в зависимости от имени объекта
+    local highlightColor = ESP_CONFIG.DEFAULT_COLOR
+    if SPECIAL_COLORS[item.Name] then
+        highlightColor = SPECIAL_COLORS[item.Name]
+    end
+
+    -- Создаем Highlight
+    local highlight = Instance.new("Highlight")
+    highlight.FillColor = highlightColor
+    highlight.OutlineColor = highlightColor
+    highlight.FillTransparency = 0.5
+    highlight.OutlineTransparency = 0
+    highlight.Parent = item
+
+    -- Создаем BillboardGui для отображения имени
+    local billboard = Instance.new("BillboardGui")
+    billboard.Name = "ESPBillboard"
+    billboard.Size = UDim2.new(0, 200, 0, 50)
+    billboard.StudsOffset = ESP_CONFIG.BILLBOARD_OFFSET
+    billboard.AlwaysOnTop = true
+    billboard.Adornee = item
+    billboard.Parent = item
+
+    -- Создаем TextLabel для имени
+    local nameLabel = Instance.new("TextLabel")
+    nameLabel.Size = UDim2.new(1, 0, 1, 0)
+    nameLabel.BackgroundTransparency = 1
+    nameLabel.Text = item.Name
+    nameLabel.TextColor3 = ESP_CONFIG.TEXT_COLOR
+    nameLabel.TextStrokeColor3 = ESP_CONFIG.TEXT_STROKE_COLOR
+    nameLabel.TextStrokeTransparency = 0
+    nameLabel.TextSize = ESP_CONFIG.TEXT_SIZE
+    nameLabel.Font = Enum.Font.GothamBold
+    nameLabel.Parent = billboard
+
+    -- Сохраняем объекты ESP для последующего удаления
+    espObjects[item] = {
+        highlight = highlight,
+        billboard = billboard
+    }
+end
+
+-- Функция для удаления ESP
+local function removeESP(item)
+    local objects = espObjects[item]
+    if objects then
+        if objects.highlight then objects.highlight:Destroy() end
+        if objects.billboard then objects.billboard:Destroy() end
+        espObjects[item] = nil
+    end
+end
+
+-- Инициализация ESP для существующих объектов
+local function initializeESP()
+    local runtimeItems = Workspace:FindFirstChild("RuntimeItems")
+    if runtimeItems then
+        for _, item in ipairs(runtimeItems:GetChildren()) do
+            createESP(item)
+        end
+    end
+end
+
+-- Обработка добавления новых объектов
+local function onChildAdded(child)
+    if child.Parent == Workspace.RuntimeItems then
+        -- Ждем, пока объект полностью загрузится
+        child:WaitForChild("PrimaryPart", 10) -- Ожидаем PrimaryPart (если это Model)
+        createESP(child)
+    end
+end
+
+-- Обработка удаления объектов
+local function onChildRemoved(child)
+    if espObjects[child] then
+        removeESP(child)
+    end
+end
+
+-- Инициализация
+initializeESP()
+
+-- Подключаем обработчики событий
+Workspace.RuntimeItems.ChildAdded:Connect(onChildAdded)
+Workspace.RuntimeItems.ChildRemoved:Connect(onChildRemoved)
+
+-- Постоянное обновление (на случай, если объекты перемещаются)
+RunService.Heartbeat:Connect(function()
+    for item, objects in pairs(espObjects) do
+        if not item.Parent then
+            removeESP(item)
+        end
+    end
+end)
+
+end)
+
+
+createButton(frame, UDim2.new(0.5, -35, 1, -225), UDim2.new(0, 100, 0, 40), "Abuse trap", Color3.fromRGB(255, 0, 255), Color3.fromRGB(255, 255, 255), function()
+
+
+
+end)
+
+createButton(frame, UDim2.new(0.5, 70, 1, -225), UDim2.new(0, 100, 0, 40), "Anti trap", Color3.fromRGB(255, 0, 255), Color3.fromRGB(255, 255, 255), function()
+
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+
+-- Get the local player
+local player = Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+
+-- Configuration
+local DETECTION_DISTANCE = 4.5 -- Distance at which upward movement starts
+local UPWARD_FORCE = 7.5 -- Strength of the upward movement
+
+-- Function to get all trap roots
+local function getTrapRoots()
+    local trapRoots = {}
+    for _, trap in pairs(workspace.Map.Traps:GetChildren()) do
+        local root = trap:FindFirstChild("Root")
+        if root then
+            table.insert(trapRoots, root)
+        end
+    end
+    return trapRoots
+end
+
+-- Main update loop
+RunService.Heartbeat:Connect(function()
+    if not character or not character:FindFirstChild("HumanoidRootPart") then return end
+    
+    local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+    local playerPosition = humanoidRootPart.Position
+    
+    for _, trapRoot in pairs(getTrapRoots()) do
+        -- Calculate distance between player and trap
+        local trapPosition = trapRoot.Position
+        local distance = (playerPosition - trapPosition).Magnitude
+        
+        -- If trap is too close, apply upward movement
+        if distance < DETECTION_DISTANCE then
+            -- Calculate upward force based on distance
+            local upwardForce = Vector3.new(
+                0,
+                UPWARD_FORCE * (1 - (distance / DETECTION_DISTANCE)),
+                0
+            )
+            
+            -- Apply the upward force to the character
+            humanoidRootPart.CFrame = humanoidRootPart.CFrame + upwardForce
+        end
+    end
+end)
+
+-- Handle character respawn
+player.CharacterAdded:Connect(function(newCharacter)
+    character = newCharacter
+end)
+
+-- Error handling for trap detection
+local function initializeTrapRoot()
+    if not workspace.Map:FindFirstChild("Traps") then
+        showNotification("Traps folder not found, waiting for it...")
+        workspace.Map.ChildAdded:Connect(function(child)
+            if child.Name == "Traps" then
+                -- Traps folder loaded, continue with collection
+            end
+        end)
+    end
+end
+
+initializeTrapRoot()
+
+end)
+
+createButton(frame, UDim2.new(0.5, 70, 1, -180), UDim2.new(0, 100, 0, 40), "AntiBabylya", Color3.fromRGB(255, 0, 255), Color3.fromRGB(255, 255, 255), function()
+
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+
+-- Получаем локального игрока
+local player = Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+
+-- Конфигурация
+local REPULSION_DISTANCE = 8 -- Расстояние, при котором начинается восходящее движение
+local UPWARD_FORCE = 10 -- Сила восходящего движения
+
+-- Функция для проверки, является ли персонаж игрока Dress
+local function isPlayerDress()
+    local character = player.Character
+    if not character then return false end
+    
+    -- Проверка, является ли персонаж игрока Dress
+    return character.Name == "Dress" -- Здесь должно быть имя персонажа или ключевая проверка
+end
+
+-- Основной цикл обновления
+RunService.Heartbeat:Connect(function()
+    -- Не применять силу, если персонаж игрока — это Dress
+    if isPlayerDress() then return end
+    
+    if not character or not character:FindFirstChild("HumanoidRootPart") then return end
+    
+    local enemy = workspace.Map.Players.Enemy:FindFirstChild("Dress")
+    if not enemy then return end
+    
+    local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+    local playerPosition = humanoidRootPart.Position
+    local enemyPosition = enemy.Position
+    
+    -- Рассчитываем расстояние между игроком и врагом
+    local distance = (playerPosition - enemyPosition).Magnitude
+    
+    -- Если враг слишком близко, применяем восходящее движение
+    if distance < REPULSION_DISTANCE then
+        -- Рассчитываем силу восходящего движения в зависимости от расстояния
+        local upwardForce = Vector3.new(
+            0, 
+            UPWARD_FORCE * (1 - (distance / REPULSION_DISTANCE)), 
+            0
+        )
+        
+        -- Применяем восходящую силу к персонажу
+        humanoidRootPart.CFrame = humanoidRootPart.CFrame + upwardForce
+    end
+end)
+
+-- Обработка возрождения персонажа
+player.CharacterAdded:Connect(function(newCharacter)
+    character = newCharacter
+end)
+
+end)
+
+createButton(frame, UDim2.new(0.5, -245, 1, -225), UDim2.new(0, 100, 0, 40), "AA only Granny", Color3.fromRGB(255, 0, 255), Color3.fromRGB(255, 255, 255), function()
+
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+
+-- Configuration
+local SPIN_SPEED = 50 -- Adjust speed of rotation
+local isEnabled = false
+
+-- Get player and character
+local player = Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+
+-- Function to perform side-to-side anti-aim
+local function performAntiAim()
+    if not character or not character:FindFirstChild("HumanoidRootPart") then return end
+    
+    local humanoidRootPart = character.HumanoidRootPart
+    local currentRotation = 0
+    
+    -- Main anti-aim loop
+    RunService.Heartbeat:Connect(function()
+        if not isEnabled then return end
+        
+        -- Update rotation (side to side only)
+        currentRotation = currentRotation + math.rad(SPIN_SPEED)
+        
+        -- Keep original X (up/down) and Z (forward/back) rotation, only change Y (side to side)
+        local currentCFrame = humanoidRootPart.CFrame
+        local newCFrame = CFrame.new(
+            currentCFrame.Position.X,
+            currentCFrame.Position.Y,
+            currentCFrame.Position.Z
+        ) * CFrame.Angles(
+            0, -- No up/down rotation
+            currentRotation, -- Side to side rotation
+            0 -- No forward/back rotation
+        )
+        
+        humanoidRootPart.CFrame = newCFrame
+    end)
+end
+
+-- Handle character respawning
+player.CharacterAdded:Connect(function(newCharacter)
+    character = newCharacter
+    if isEnabled then
+        performAntiAim()
+    end
+end)
+
+-- Create the button with your specified parameters
+local function createButton(frame, position, size, text, backgroundColor, textColor, callback)
+    local button = Instance.new("TextButton")
+    button.Position = position
+    button.Size = size
+    button.Text = text
+    button.BackgroundColor3 = backgroundColor
+    button.TextColor3 = textColor
+    button.Parent = frame
+    
+    -- Add hover effect
+    local originalColor = backgroundColor
+    button.MouseEnter:Connect(function()
+        button.BackgroundColor3 = Color3.new(
+            math.clamp(backgroundColor.R * 0.8, 0, 1),
+            math.clamp(backgroundColor.G * 0.8, 0, 1),
+            math.clamp(backgroundColor.B * 0.8, 0, 1)
+        )
+    end)
+    
+    button.MouseLeave:Connect(function()
+        button.BackgroundColor3 = originalColor
+    end)
+    
+    button.MouseButton1Click:Connect(callback)
+    return button
+end
+
+end)
+
+createButton(frame, UDim2.new(0.5, -140, 1, -225), UDim2.new(0, 100, 0, 40), "Teleport (T)", Color3.fromRGB(255, 0, 255), Color3.fromRGB(255, 255, 255), function()
+
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:WaitForChild("Humanoid")
+local camera = game.Workspace.CurrentCamera
+local userInputService = game:GetService("UserInputService")
+
+-- Функция для телепортации персонажа
+local function teleportToLook()
+    -- Получаем точку, куда смотрит камера
+    local lookDirection = camera.CFrame.LookVector
+    -- Определяем точку перед персонажем
+    local teleportPosition = camera.CFrame.Position + lookDirection * 10  -- Телепорт на 10 студий вперед
+
+    -- Устанавливаем позицию персонажа в эту точку
+    character:SetPrimaryPartCFrame(CFrame.new(teleportPosition))
+end
+
+userInputService.InputBegan:Connect(function(input, gameProcessed)
+    if gameProcessed then return end
+    if input.KeyCode == Enum.KeyCode.T then
+        teleportToLook()  -- Телепортация при нажатии клавиши T
+    end
+end)
+
+end)
+
+createButton(frame, UDim2.new(0.5, 70, 1, -135), UDim2.new(0, 100, 0, 40), "Eblan (V)", Color3.fromRGB(255, 0, 255), Color3.fromRGB(255, 255, 255), function()
+
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:WaitForChild("Humanoid")
+local userInputService = game:GetService("UserInputService")
+
+-- Флаг для отслеживания состояния фиксации
+local isFrozen = false
+
+-- Функция для фиксации персонажа
+local function toggleFreeze()
+    if isFrozen then
+        humanoid.PlatformStand = false  -- Размораживаем персонажа
+        isFrozen = false
+    else
+        humanoid.PlatformStand = true   -- Замораживаем персонажа
+        isFrozen = true
+    end
+end
+
+-- Обработчик нажатия клавиши T
+userInputService.InputBegan:Connect(function(input, gameProcessed)
+    if gameProcessed then return end
+    if input.KeyCode == Enum.KeyCode.V then
+        toggleFreeze()
+    end
+end)
+
+end)
+
+--createButton(frame, UDim2.new(0.5, 70, 1, -180), UDim2.new(0, 100, 0, 40), "HS item (soon)", Color3.fromRGB(1, 71, 67), Color3.fromRGB(255, 255, 255), function()
+--    colorSliderFrameESP.Visible = not colorSliderFrameESP.Visible
+--end)
+
+createButton(colorSliderFrameESP, UDim2.new(0.5, -50, 1, -30), UDim2.new(0, 100, 0, 30), "Close", Color3.fromRGB(255, 165, 0), Color3.fromRGB(255, 255, 255), function()
+    colorSliderFrameESP.Visible = false
+end)
+
+createButton(frame, UDim2.new(0.5, -245, 1, -180), UDim2.new(0, 100, 0, 40), "Delete item", Color3.fromRGB(227, 36, 121), Color3.fromRGB(255, 255, 255), function()
+deleteItem()
+end)
+
+createButton(frame, UDim2.new(0.5, -35, 1, -180), UDim2.new(0, 100, 0, 40), "Trap ESP", Color3.fromRGB(1, 71, 67), Color3.fromRGB(255, 255, 255), function()
+
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+
+-- Вспомогательная функция для показа уведомлений
+local function showNotification2(message)
+    showNotification2("[Trap ESP] " .. message) -- Debug output
+end
+
+-- Главная функция создания ESP для ловушки
+local function createESPForTrap(trap)
+    if not trap or not trap.Parent then return end
+    
+    local function setupESPComponents()
+        -- Создаем или получаем root-часть
+        local root = trap:FindFirstChild("Root") or trap
+        if not root then return end
+        
+        -- Создаем Highlight, если его нет
+        if not trap:FindFirstChild("Highlight") then
+            local highlight = Instance.new("Highlight")
+            highlight.FillColor = Color3.new(1, 0, 0)
+            highlight.OutlineColor = Color3.new(1, 0, 0)
+            highlight.FillTransparency = 0.5
+            highlight.OutlineTransparency = 0
+            highlight.Parent = trap
+        end
+        
+        -- Создаем BillboardGui, если его нет
+        if not root:FindFirstChild("BillboardGui") then
+            local billboard = Instance.new("BillboardGui")
+            billboard.Adornee = root
+            billboard.Size = UDim2.new(0, 200, 0, 50)
+            billboard.StudsOffset = Vector3.new(0, 2, 0)
+            billboard.AlwaysOnTop = true
+            billboard.Name = "BillboardGui"
+            
+            local label = Instance.new("TextLabel")
+            label.Text = "Trap"
+            label.Size = UDim2.new(1, 0, 1, 0)
+            label.TextColor3 = Color3.new(1, 0, 0)
+            label.TextScaled = true
+            label.BackgroundTransparency = 1
+            label.Font = Enum.Font.GothamBold
+            label.Parent = billboard
+            
+            billboard.Parent = root
+        end
+    end
+    
+    -- Попытка настроить компоненты ESP с обработкой ошибок
+    local success, err = pcall(setupESPComponents)
+    if not success then
+        showNotification2("Error setting up ESP for trap: " .. tostring(err))
+    end
+end
+
+-- Функция инициализации системы ESP
+local function initializeESP()
+    local map = workspace:WaitForChild("Map", 10)
+    if not map then
+        showNotification("Map not found!")
+        return
+    end
+    
+    local trapsFolder = map:WaitForChild("Traps", 10)
+    if not trapsFolder then
+        showNotification("Traps folder not found!")
+        return
+    end
+    
+    -- Обработка новых ловушек
+    local function onNewTrapAdded(trap)
+        wait(0.1) -- Небольшая задержка, чтобы ловушка была полностью загружена
+        createESPForTrap(trap)
+    end
+    
+    -- Устанавливаем ESP для существующих ловушек
+    for _, trap in ipairs(trapsFolder:GetChildren()) do
+        task.spawn(function()
+            createESPForTrap(trap)
+        end)
+    end
+    
+    -- Мониторинг новых ловушек
+    trapsFolder.ChildAdded:Connect(onNewTrapAdded)
+    
+    -- Очистка уничтоженных ловушек
+    RunService.Heartbeat:Connect(function()
+        for _, trap in ipairs(trapsFolder:GetChildren()) do
+            if trap and trap:FindFirstChild("Highlight") then
+                if not trap.Parent or trap.Parent ~= trapsFolder then
+                    local highlight = trap:FindFirstChild("Highlight")
+                    local root = trap:FindFirstChild("Root")
+                    if root then
+                        local billboard = root:FindFirstChild("BillboardGui")
+                        if billboard then billboard:Destroy() end
+                    end
+                    if highlight then highlight:Destroy() end
+                end
+            end
+        end
+    end)
+end
+
+-- Функция для восстановления ESP при возрождении персонажа
+local function onPlayerCharacterAdded()
+    local success, err = pcall(initializeESP)
+    if not success then
+        showNotification("Failed to initialize ESP system: " .. tostring(err))
+    end
+end
+
+-- Подключаемся к событию CharacterAdded, чтобы перезапустить ESP при возрождении персонажа
+Players.LocalPlayer.CharacterAdded:Connect(onPlayerCharacterAdded)
+
+-- Инициализируем систему ESP при первом запуске
+local success, err = pcall(initializeESP)
+if not success then
+    showNotification("Failed to initialize ESP system: " .. tostring(err))
+end
+
+end)
+
+createButton(frame, UDim2.new(0.5, 70, 1, -90), UDim2.new(0, 100, 0, 40), "Noclip bind(X)", Color3.fromRGB(727, 66, 331), Color3.fromRGB(255, 255, 255), function()
+
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:WaitForChild("Humanoid")
+local noclip = false -- Переменная для отслеживания состояния NOCLIP
+
+-- Список частей тела, которые должны иметь коллизии
+local collidableParts = {
+    "HumanoidRootPart", -- Основная часть тела
+    "Head" -- Голова
+}
+
+-- Функция для включения/выключения NOCLIP
+local function toggleNoclip()
+    noclip = not noclip -- Меняем состояние на противоположное
+    if noclip then
+        showNotification("NOCLIP: (ON)")
+    else
+        showNotification("NOCLIP: (OFF)")
+    end
+end
+
+-- Функция для обработки NOCLIP
+local function noclipLoop()
+    if noclip then
+        -- Отключаем коллизии для всех частей тела
+        for _, part in pairs(character:GetDescendants()) do
+            if part:IsA("BasePart") then
+                part.CanCollide = false
+            end
+        end
+    else
+        -- Включаем коллизии только для определённых частей тела
+        for _, partName in pairs(collidableParts) do
+            local part = character:FindFirstChild(partName)
+            if part and part:IsA("BasePart") then
+                part.CanCollide = true
+            end
+        end
+    end
+end
+
+-- Функция для обновления переменных при возрождении персонажа
+local function onCharacterAdded(newCharacter)
+    character = newCharacter
+    humanoid = character:WaitForChild("Humanoid") -- Ждем пока загрузится Humanoid
+end
+
+-- Подключаемся к событию CharacterAdded, чтобы обновить переменные после смерти
+player.CharacterAdded:Connect(onCharacterAdded)
+
+-- Обработка нажатия клавиши Z
+game:GetService("UserInputService").InputBegan:Connect(function(input, gameProcessed)
+    if gameProcessed then return end -- Игнорируем, если событие уже обработано игрой
+    if input.KeyCode == Enum.KeyCode.X then
+        toggleNoclip() -- Включаем/выключаем NOCLIP
+    end
+end)
+
+-- Основной цикл
+game:GetService("RunService").Stepped:Connect(function()
+    -- Нужно удостовериться, что character существует и обновлен после смерти
+    if character and humanoid and humanoid.Health > 0 then
+        noclipLoop()
+    end
+end)
+
+end)
+
+createButton(frame, UDim2.new(0.5, -35, 1, -270), UDim2.new(0, 100, 0, 40), "Fullbright", Color3.fromRGB(0, 166, 131), Color3.fromRGB(255, 255, 255), function()
+local Lighting = game:GetService("Lighting")
+local RunService = game:GetService("RunService")
+
+-- Функция для обновления освещения
+local function UpdateLighting()
+    -- Отключаем тени
+    Lighting.GlobalShadows = false
+    Lighting.ShadowSoftness = 0
+
+    -- Устанавливаем яркое освещение
+    Lighting.Brightness = 0.75
+    Lighting.Ambient = Color3.new(1, 1, 1) -- Белый свет
+    Lighting.OutdoorAmbient = Color3.new(1, 1, 1) -- Белый свет для наружных объектов
+    Lighting.ClockTime = 14 -- Устанавливаем время дня (14 = день)
+
+    -- Отключаем эффекты, которые могут затемнять сцену
+    Lighting.FogEnd = 0 -- Убираем туман
+    Lighting.FogStart = 0
+end
+
+-- Постоянное обновление освещения
+RunService.Heartbeat:Connect(UpdateLighting)
+end)
+
+createButton(frame, UDim2.new(0.5, -140, 1, -180), UDim2.new(0, 100, 0, 40), "Wallhack", Color3.fromRGB(1, 71, 67), Color3.fromRGB(255, 255, 255), function()
+
+local LocalPlayer = Players.LocalPlayer
+    local wallhackEnabled = false
+    
+    -- ESP Configuration
+    local ESP_CONFIG = {
+        HIGHLIGHT_COLOR = Color3.fromRGB(136, 155, 155),
+        TEXT_COLOR = Color3.fromRGB(136, 155, 155),
+        TEXT_STROKE_COLOR = Color3.fromRGB(0, 0, 0),
+        TEXT_SIZE = 15,
+        BILLBOARD_OFFSET = Vector3.new(0, 2.5, 0)
+    }
+    
+    -- Store ESP objects for cleanup
+    local espObjects = {}
+    
+    local function createPlayerESP(player)
+        if player == LocalPlayer then return end
+        
+        local character = player.Character
+        if not character then return end
+        
+        -- Create highlight
+        local highlight = Instance.new("Highlight")
+        highlight.FillColor = ESP_CONFIG.HIGHLIGHT_COLOR
+        highlight.OutlineColor = ESP_CONFIG.HIGHLIGHT_COLOR
+        highlight.FillTransparency = 0.4
+        highlight.OutlineTransparency = 0
+        highlight.Parent = character
+        
+        -- Create BillboardGui for player name
+        local billboard = Instance.new("BillboardGui")
+        billboard.Name = "ESPBillboard"
+        billboard.Size = UDim2.new(0, 200, 0, 50)
+        billboard.StudsOffset = ESP_CONFIG.BILLBOARD_OFFSET
+        billboard.AlwaysOnTop = true
+        billboard.Parent = character:WaitForChild("HumanoidRootPart")
+        
+        -- Create name label
+        local nameLabel = Instance.new("TextLabel")
+        nameLabel.Size = UDim2.new(1, 0, 1, 0)
+        nameLabel.BackgroundTransparency = 1
+        nameLabel.Text = player.Name
+        nameLabel.TextColor3 = ESP_CONFIG.TEXT_COLOR
+        nameLabel.TextStrokeColor3 = ESP_CONFIG.TEXT_STROKE_COLOR
+        nameLabel.TextStrokeTransparency = 0
+        nameLabel.TextSize = ESP_CONFIG.TEXT_SIZE
+        nameLabel.Font = Enum.Font.GothamBold
+        nameLabel.Parent = billboard
+        
+        -- Store ESP objects for this player
+        espObjects[player] = {
+            highlight = highlight,
+            billboard = billboard
+        }
+    end
+    
+    local function removePlayerESP(player)
+        local objects = espObjects[player]
+        if objects then
+            if objects.highlight then objects.highlight:Destroy() end
+            if objects.billboard then objects.billboard:Destroy() end
+            espObjects[player] = nil
+        end
+    end
+    
+    local function toggleWallhack()
+        wallhackEnabled = not wallhackEnabled
+        
+        if wallhackEnabled then
+            -- Set up ESP for existing players
+            for _, player in ipairs(Players:GetPlayers()) do
+                if player ~= LocalPlayer then
+                    createPlayerESP(player)
+                end
+            end
+            
+            -- Connect player events
+            Players.PlayerAdded:Connect(function(player)
+                if wallhackEnabled then
+                    player.CharacterAdded:Connect(function(character)
+                        if wallhackEnabled then
+                            wait(0.5) -- Wait for character to load
+                            createPlayerESP(player)
+                        end
+                    end)
+                end
+            end)
+            
+            Players.PlayerRemoving:Connect(function(player)
+                removePlayerESP(player)
+            end)
+            
+            -- Handle character respawning for existing players
+            for _, player in ipairs(Players:GetPlayers()) do
+                if player ~= LocalPlayer then
+                    player.CharacterAdded:Connect(function(character)
+                        if wallhackEnabled then
+                            wait(0.5)
+                            createPlayerESP(player)
+                        end
+                    end)
+                end
+            end
+            
+            -- Update ESP positions
+            RunService.RenderStepped:Connect(function()
+                if not wallhackEnabled then return end
+                
+                for player, objects in pairs(espObjects) do
+                    if not player.Character or not player.Character:FindFirstChild("HumanoidRootPart") then
+                        removePlayerESP(player)
+                    end
+                end
+            end)
+            
+        else
+            -- Clean up all ESP objects
+            for player, _ in pairs(espObjects) do
+                removePlayerESP(player)
+            end
+        end
+    end
+    
+    -- Toggle wallhack when button is clicked
+    toggleWallhack()
+
+end)
+
+createButton(frame, UDim2.new(0.5, 175, 1, -135), UDim2.new(0, 70, 0, 40), "Speed +2", Color3.fromRGB(77, 66, 331), Color3.fromRGB(255, 255, 255), function()
+local player = game.Players.LocalPlayer
+    local character = player.Character
+    if character and character:FindFirstChild("Humanoid") then
+        local humanoid = character:FindFirstChild("Humanoid")
+ 
+        humanoid.WalkSpeed = 18
+    end
+end)
+
+createButton(frame, UDim2.new(0.5, 175, 1, -90), UDim2.new(0, 70, 0, 40), "Speed +5", Color3.fromRGB(77, 66, 331), Color3.fromRGB(255, 255, 255), function()
+local player = game.Players.LocalPlayer
+    local character = player.Character
+    if character and character:FindFirstChild("Humanoid") then
+        local humanoid = character:FindFirstChild("Humanoid")
+ 
+        humanoid.WalkSpeed = 21
+    end
+end)
+
+createButton(frame, UDim2.new(0.5, 175, 1, -45), UDim2.new(0, 70, 0, 40), "Speed +10", Color3.fromRGB(77, 66, 331), Color3.fromRGB(255, 255, 255), function()
+local player = game.Players.LocalPlayer
+    local character = player.Character
+    if character and character:FindFirstChild("Humanoid") then
+        local humanoid = character:FindFirstChild("Humanoid")
+ 
+        humanoid.WalkSpeed = 26
+    end
+end)
+
+createButton(frame, UDim2.new(0.5, 175, 1, -180), UDim2.new(0, 70, 0, 40), "R3s3t sp33d", Color3.fromRGB(77, 66, 331), Color3.fromRGB(255, 255, 255), function()
+local player = game.Players.LocalPlayer
+    local character = player.Character
+    if character and character:FindFirstChild("Humanoid") then
+        local humanoid = character:FindFirstChild("Humanoid")
+        -- Сбрасываем скорость на стандартное значение (обычно 16)
+        humanoid.WalkSpeed = 16
+    end
+end)
+
+createButton(frame, UDim2.new(0.5, -35, 1, -135), UDim2.new(0, 100, 0, 40), "Ski resort", Color3.fromRGB(31, 115, 33), Color3.fromRGB(255, 255, 255), function()
+
+end)
+
+createButton(frame, UDim2.new(0.5, -245, 1, -135), UDim2.new(0, 100, 0, 40), "House 2", Color3.fromRGB(31, 115, 33), Color3.fromRGB(255, 255, 255), function()
+local itemPaths = {
+    -- na mape
+    "Workspace.Map.House II.Tools.Map.Boat steering wheel.Handle",
+"Workspace.Map.House II.Tools.Map.Spark plug.Handle",
+"Workspace.Map.House II.Tools.Map.Ammo.Handle",
+"Workspace.Map.House II.Tools.Map.Ammo.Handle",
+"Workspace.Map.House II.Tools.Map.Ammo.Handle",
+"Workspace.Map.House II.Tools.Map.Shotgun.Handle",
+"Workspace.Map.House II.Tools.Map.Weapon key.Handle",
+"Workspace.Map.House II.Tools.Map.Gasoline can.Handle",
+"Workspace.Map.House II.Tools.Map.Padlock key.Handle",
+"Workspace.Map.House II.Tools.Map.Safe key.Handle",
+"Workspace.Map.House II.Tools.Map.Crowbar.Handle",
+--"Workspace.Map.House II.Tools.Map.Hand wheel.Handle"
+"Workspace.Map.House II.Tools.Map.Hand Wheel.Handle",
+"Workspace.Map.House II.Tools.Map.Security key.Handle",
+"Workspace.Map.House II.Tools.Map.Boat key.Handle",
+"Workspace.Map.House II.Tools.Map.Cutting pliers.Handle",
+"Workspace.Map.House II.Tools.Map.Door handle.Handle",
+
+    -- v rykah
+
+        "Workspace.Map.House II.Tools.Character.Door handle.Handle",
+    "Workspace.Map.House II.Tools.Character.Cutting pliers.Handle",
+    "Workspace.Map.House II.Tools.Character.Boat key.Handle",
+    "Workspace.Map.House II.Tools.Character.Security key.Handle",
+    "Workspace.Map.House II.Tools.Character.Hand wheel.Handle",
+    "Workspace.Map.House II.Tools.Character.Boat steering wheel.Handle",
+"Workspace.Map.House II.Tools.Character.Spark plug.Handle",
+"Workspace.Map.House II.Tools.Character.Ammo.Handle",
+"Workspace.Map.House II.Tools.Character.Ammo.Handle",
+"Workspace.Map.House II.Tools.Character.Ammo.Handle",
+"Workspace.Map.House II.Tools.Character.Shotgun.Handle",
+"Workspace.Map.House II.Tools.Character.Weapon key.Handle",
+"Workspace.Map.House II.Tools.Character.Gasoline can.Handle",
+"Workspace.Map.House II.Tools.Character.Padlock key.Handle",
+"Workspace.Map.House II.Tools.Character.Safe key.Handle",
+"Workspace.Map.House II.Tools.Character.Crowbar.Handle",
+}
+
+for _, path in ipairs(itemPaths) do
+    local object = findObjectByPath(path)
+    if object then
+        -- Highlight effect
+        local highlight = Instance.new("Highlight")
+        highlight.Parent = object
+        highlight.FillColor = Color3.fromRGB(0, 255, 0) -- Green color
+        highlight.OutlineColor = Color3.fromRGB(0, 255, 0) -- Green outline
+        highlight.OutlineTransparency = 0
+        highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+
+        -- Text label above the object
+        local billboardGui = Instance.new("BillboardGui")
+        billboardGui.Parent = object
+billboardGui.Size = UDim2.new(5, 5, 5, 5)
+        billboardGui.StudsOffset = Vector3.new(0, 2, 0) -- Adjust the offset to position the text above the object
+        billboardGui.AlwaysOnTop = true
+
+        local textLabel = Instance.new("TextLabel")
+        textLabel.Parent = billboardGui
+        textLabel.Size = UDim2.new(1, 0, 1, 0)
+        textLabel.BackgroundTransparency = 1
+        textLabel.TextColor3 = Color3.new(1, 1, 1) -- White color
+        textLabel.TextScaled = true
+
+        if object.Name == "Handle" and object.Parent then
+            textLabel.Text = object.Parent.Name -- Display the parent's name
+        else
+            textLabel.Text = object.Name -- Display the object's name
+        end
+    else
+        showNotification("Object not found: " .. path)
+    end
+end
+
+end)
+
+--createButton(frame, UDim2.new(0.5, -220, 1, -210), UDim2.new(0, 100, 0, 40), "Mansion", Color3.fromRGB(114, 137, 218), Color3.fromRGB(255, 255, 255), function()
+
+--end)
+
+createButton(frame, UDim2.new(0.5, -35, 1, -90), UDim2.new(0, 100, 0, 40), "School", Color3.fromRGB(31, 115, 33), Color3.fromRGB(255, 255, 255), function()
+local itemPaths = {
+"Workspace.Map.School.Tools.Map.Safe key.Handle",
+"Workspace.Map.School.Tools.Map.Fuse.Handle",
+"Workspace.Map.School.Tools.Map.Weapon key.Handle",
+"Workspace.Map.School.Tools.Map.Slingshot.Handle",
+"Workspace.Map.School.Tools.Map.Gear.Handle",
+"Workspace.Map.School.Tools.Map.Cutting pliers.Handle",
+"Workspace.Map.School.Tools.Map.Padlock key.Handle",
+"Workspace.Map.School.Tools.Map.Stone.Handle",
+"Workspace.Map.School.Tools.Map.Stone.Handle",
+"Workspace.Map.School.Tools.Map.Stone.Handle",
+"Workspace.Map.School.Tools.Map.Hand wheel.Handle",
+"Workspace.Map.School.Tools.Map.Bus steering wheel.Handle",
+"Workspace.Map.School.Tools.Map.Security key.Handle",
+"Workspace.Map.School.Tools.Map.Master key.Handle",
+"Workspace.Map.School.Tools.Map.Screwdriver.Handle",
+"Workspace.Map.School.Tools.Map.Lock pick.Handle",
+"Workspace.Map.School.Tools.Map.Cutting pliers.Handle",
+"Workspace.Map.School.Tools.Map.Bus key.Handle",
+"Workspace.Map.School.Tools.Map.Gallon.Handle",
+    -- v rykah
+"Workspace.Map.School.Tools.Map.Gallon.Handle",
+"Workspace.Map.School.Tools.Character.Safe key.Handle",
+"Workspace.Map.School.Tools.Character.Fuse.Handle",
+"Workspace.Map.School.Tools.Character.Weapon key.Handle",
+"Workspace.Map.School.Tools.Character.Slingshot.Handle",
+"Workspace.Map.School.Tools.Character.Gear.Handle",
+"Workspace.Map.School.Tools.Character.Cutting pliers.Handle",
+"Workspace.Map.School.Tools.Character.Padlock key.Handle",
+"Workspace.Map.School.Tools.Character.Stone.Handle",
+"Workspace.Map.School.Tools.Character.Stone.Handle",
+"Workspace.Map.School.Tools.Character.Stone.Handle",
+"Workspace.Map.School.Tools.Character.Hand wheel.Handle",
+"Workspace.Map.School.Tools.Character.Bus steering wheel.Handle",
+"Workspace.Map.School.Tools.Character.Security key.Handle",
+"Workspace.Map.School.Tools.Character.Master key.Handle",
+"Workspace.Map.School.Tools.Character.Screwdriver.Handle",
+"Workspace.Map.School.Tools.Character.Lock pick.Handle",
+"Workspace.Map.School.Tools.Character.Cutting pliers.Handle",
+"Workspace.Map.School.Tools.Character.Bus key.Handle",
+}
+
+for _, path in ipairs(itemPaths) do
+    local object = findObjectByPath(path)
+    if object then
+        -- Highlight effect
+        local highlight = Instance.new("Highlight")
+        highlight.Parent = object
+        highlight.FillColor = Color3.fromRGB(0, 255, 0) -- Green color
+        highlight.OutlineColor = Color3.fromRGB(0, 255, 0) -- Green outline
+        highlight.OutlineTransparency = 0
+        highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+
+        -- Text label above the object
+        local billboardGui = Instance.new("BillboardGui")
+        billboardGui.Parent = object
+billboardGui.Size = UDim2.new(5, 5, 5, 5)
+        billboardGui.StudsOffset = Vector3.new(0, 2, 0) -- Adjust the offset to position the text above the object
+        billboardGui.AlwaysOnTop = true
+
+        local textLabel = Instance.new("TextLabel")
+        textLabel.Parent = billboardGui
+        textLabel.Size = UDim2.new(1, 0, 1, 0)
+        textLabel.BackgroundTransparency = 1
+        textLabel.TextColor3 = Color3.new(1, 1, 1) -- White color
+        textLabel.TextScaled = true
+
+        if object.Name == "Handle" and object.Parent then
+            textLabel.Text = object.Parent.Name -- Display the parent's name
+        else
+            textLabel.Text = object.Name -- Display the object's name
+        end
+    else
+        showNotification("Object not found: " .. path)
+    end
+end
+
+end)
+
+createButton(frame, UDim2.new(0.5, -245, 1, -90), UDim2.new(0, 100, 0, 40), "Cemetery", Color3.fromRGB(31, 115, 33), Color3.fromRGB(255, 255, 255), function()
+local itemPaths = {
+"Workspace.Map.Cemetery.Tools.Map.Tranquilizer dart.Handle",
+"Workspace.Map.Cemetery.Tools.Map.Tranquilizer dart.Handle",
+"Workspace.Map.Cemetery.Tools.Map.Tranquilizer dart.Handle",
+"Workspace.Map.Cemetery.Tools.Map.Emerald.Handle",
+"Workspace.Map.Cemetery.Tools.Map.Weapon key.Handle",
+"Workspace.Map.Cemetery.Tools.Map.Ruby.Handle",
+"Workspace.Map.Cemetery.Tools.Map.Crossbow.Handle",
+"Workspace.Map.Cemetery.Tools.Map.Wrench.Handle",
+"Workspace.Map.Cemetery.Tools.Map.Oil can.Handle",
+"Workspace.Map.Cemetery.Tools.Map.Gate key.Handle",
+"Workspace.Map.Cemetery.Tools.Map.Silver key.Handle",
+"Workspace.Map.Cemetery.Tools.Map.Diamond.Handle",
+"Workspace.Map.Cemetery.Tools.Map.Crowbar.Handle",
+
+    -- v rykah
+
+"Workspace.Map.Cemetery.Tools.Character.Tranquilizer dart.Handle",
+"Workspace.Map.Cemetery.Tools.Character.Tranquilizer dart.Handle",
+"Workspace.Map.Cemetery.Tools.Character.Tranquilizer dart.Handle",
+"Workspace.Map.Cemetery.Tools.Character.Emerald.Handle",
+"Workspace.Map.Cemetery.Tools.Character.Weapon key.Handle",
+"Workspace.Map.Cemetery.Tools.Character.Ruby.Handle",
+"Workspace.Map.Cemetery.Tools.Character.Crossbow.Handle",
+"Workspace.Map.Cemetery.Tools.Character.Wrench.Handle",
+"Workspace.Map.Cemetery.Tools.Character.Oil can.Handle",
+"Workspace.Map.Cemetery.Tools.Character.Gate key.Handle",
+"Workspace.Map.Cemetery.Tools.Character.Silver key.Handle",
+"Workspace.Map.Cemetery.Tools.Character.Diamond.Handle",
+"Workspace.Map.Cemetery.Tools.Character.Crowbar.Handle",
+
+}
+
+for _, path in ipairs(itemPaths) do
+    local object = findObjectByPath(path)
+    if object then
+        -- Highlight effect
+        local highlight = Instance.new("Highlight")
+        highlight.Parent = object
+        highlight.FillColor = Color3.fromRGB(0, 255, 0) -- Green color
+        highlight.OutlineColor = Color3.fromRGB(0, 255, 0) -- Green outline
+        highlight.OutlineTransparency = 0
+        highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+
+        -- Text label above the object
+        local billboardGui = Instance.new("BillboardGui")
+        billboardGui.Parent = object
+billboardGui.Size = UDim2.new(5, 5, 5, 5)
+        billboardGui.StudsOffset = Vector3.new(0, 2, 0) -- Adjust the offset to position the text above the object
+        billboardGui.AlwaysOnTop = true
+
+        local textLabel = Instance.new("TextLabel")
+        textLabel.Parent = billboardGui
+        textLabel.Size = UDim2.new(1, 0, 1, 0)
+        textLabel.BackgroundTransparency = 1
+        textLabel.TextColor3 = Color3.new(1, 1, 1) -- White color
+        textLabel.TextScaled = true
+
+        if object.Name == "Handle" and object.Parent then
+            textLabel.Text = object.Parent.Name -- Display the parent's name
+        else
+            textLabel.Text = object.Name -- Display the object's name
+        end
+    else
+        showNotification("Object not found: " .. path)
+    end
+end
+
+
+end)
+
+createButton(frame, UDim2.new(0.5, -140, 1, -90), UDim2.new(0, 100, 0, 40), "Mansion", Color3.fromRGB(31, 115, 33), Color3.fromRGB(255, 255, 255), function()
+local itemPaths = {
+
+"Workspace.Map.Mansion.Tools.Map.Firewood.Handle",
+"Workspace.Map.Mansion.Tools.Map.Coconut.Handle",
+"Workspace.Map.Mansion.Tools.Map.Safe key.Handle",
+"Workspace.Map.Mansion.Tools.Map.Coin.Handle",
+"Workspace.Map.Mansion.Tools.Map.Crowbar.Handle",
+"Workspace.Map.Mansion.Tools.Map.Bridge crank.Handle",
+"Workspace.Map.Mansion.Tools.Map.Shed key.Handle",
+"Workspace.Map.Mansion.Tools.Map.Accelerator.Handle",
+"Workspace.Map.Mansion.Tools.Map.Train key.Handle",
+"Workspace.Map.Mansion.Tools.Map.Weapon key.Handle",
+"Workspace.Map.Mansion.Tools.Map.Padlock key.Handle",
+"Workspace.Map.Mansion.Tools.Map.Matches.Handle",
+"Workspace.Map.Mansion.Tools.Map.Bridge crank.Handle",
+"Workspace.Map.Mansion.Tools.Map.Stun gun.Handle",
+"Workspace.Map.Mansion.Tools.Map.Shed key.Handle",
+"Workspace.Map.Mansion.Tools.Map.Teddy.Handle",
+"Workspace.Map.Mansion.Tools.Map.Stun gun ammo.Handle",
+"Workspace.Map.Mansion.Tools.Map.Generator cable.Handle",
+
+    -- v rykah
+
+"Workspace.Map.Mansion.Tools.Map.Generator cable.Handle",
+"Workspace.Map.Mansion.Tools.Map.Stun gun ammo.Handle",
+    "Workspace.Map.Mansion.Tools.Map.Stun gun ammo.Handle",
+"Workspace.Map.Mansion.Tools.Map.Teddy.Handle",
+"Workspace.Map.Mansion.Tools.Character.Teddy.Handle",
+"Workspace.Map.Mansion.Tools.Character.Firewood.Handle",
+"Workspace.Map.Mansion.Tools.Character.Coconut.Handle",
+"Workspace.Map.Mansion.Tools.Character.Safe key.Handle",
+"Workspace.Map.Mansion.Tools.Character.Coin.Handle",
+"Workspace.Map.Mansion.Tools.Character.Crowbar.Handle",
+"Workspace.Map.Mansion.Tools.Character.Bridge crank.Handle",
+"Workspace.Map.Mansion.Tools.Character.Shed key.Handle",
+"Workspace.Map.Mansion.Tools.Character.Accelerator.Handle",
+"Workspace.Map.Mansion.Tools.Character.Train key.Handle",
+"Workspace.Map.Mansion.Tools.Character.Weapon key.Handle",
+"Workspace.Map.Mansion.Tools.Character.Padlock key.Handle",
+"Workspace.Map.Mansion.Tools.Character.Matches.Handle",
+"Workspace.Map.Mansion.Tools.Character.Bridge crank.Handle",
+"Workspace.Map.Mansion.Tools.Character.Stun gun.Handle",
+"Workspace.Map.Mansion.Tools.Character.Shed key.Handle",
+}
+
+for _, path in ipairs(itemPaths) do
+    local object = findObjectByPath(path)
+    if object then
+        -- Highlight effect
+        local highlight = Instance.new("Highlight")
+        highlight.Parent = object
+        highlight.FillColor = Color3.fromRGB(0, 255, 0) -- Green color
+        highlight.OutlineColor = Color3.fromRGB(0, 255, 0) -- Green outline
+        highlight.OutlineTransparency = 0
+        highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+
+        -- Text label above the object
+        local billboardGui = Instance.new("BillboardGui")
+        billboardGui.Parent = object
+billboardGui.Size = UDim2.new(5, 5, 5, 5)
+        billboardGui.StudsOffset = Vector3.new(0, 2, 0) -- Adjust the offset to position the text above the object
+        billboardGui.AlwaysOnTop = true
+
+        local textLabel = Instance.new("TextLabel")
+        textLabel.Parent = billboardGui
+        textLabel.Size = UDim2.new(1, 0, 1, 0)
+        textLabel.BackgroundTransparency = 1
+        textLabel.TextColor3 = Color3.new(1, 1, 1) -- White color
+        textLabel.TextScaled = true
+
+        if object.Name == "Handle" and object.Parent then
+            textLabel.Text = object.Parent.Name -- Display the parent's name
+        else
+            textLabel.Text = object.Name -- Display the object's name
+        end
+    else
+        showNotification("Object not found: " .. path)
+    end
+end
+
+end)
+
+createButton(frame, UDim2.new(0.5, -140, 1, -135), UDim2.new(0, 100, 0, 40), "House", Color3.fromRGB(31, 115, 33), Color3.fromRGB(255, 255, 255), function()
+    local itemPaths = {
+    "Workspace.Map.House.Tools.Map.Weapon key.Handle",
+    "Workspace.Map.House.Tools.Map.Crossbow.Handle",
+    "Workspace.Map.House.Tools.Map.Bird seed.Handle",
+    "Workspace.Map.House.Tools.Map.Eye of the saint.Handle",
+    "Workspace.Map.House.Tools.Map.Hammer.Handle",
+    "Workspace.Map.House.Tools.Map.Screwdriver.Handle",
+    "Workspace.Map.House.Tools.Map.Safe key.Handle",
+    "Workspace.Map.House.Tools.Map.Cutting pliers.Handle",
+    "Workspace.Map.House.Tools.Map.Heart of the saint.Handle",
+    "Workspace.Map.House.Tools.Map.Padlock key.Handle",
+    "Workspace.Map.House.Tools.Map.Playhouse key.Handle",
+    "Workspace.Map.House.Tools.Map.Saint's left arm.Handle",
+    "Workspace.Map.House.Tools.Map.Winch handle.Handle",
+    "Workspace.Map.House.Tools.Map.Master key.Handle",
+    "Workspace.Map.House.Tools.Map.Tranquilizer dart.Handle",
+"Workspace.Map.House.Tools.Map.Tranquilizer dart.Handle",
+"Workspace.Map.House.Tools.Map.Tranquilizer dart.Handle",
+    -- v rykah
+    "Workspace.Map.House.Tools.Character.Weapon key.Handle",
+    "Workspace.Map.House.Tools.Character.Crossbow.Handle",
+    "Workspace.Map.House.Tools.Character.Bird seed.Handle",
+    "Workspace.Map.House.Tools.Character.Eye of the saint.Handle",
+    "Workspace.Map.House.Tools.Character.Hammer.Handle",
+    "Workspace.Map.House.Tools.Character.Screwdriver.Handle",
+    "Workspace.Map.House.Tools.Character.Safe key.Handle",
+    "Workspace.Map.House.Tools.Character.Cutting pliers.Handle",
+    "Workspace.Map.House.Tools.Character.Heart of the saint.Handle",
+    "Workspace.Map.House.Tools.Character.Padlock key.Handle",
+    "Workspace.Map.House.Tools.Character.Playhouse key.Handle",
+    "Workspace.Map.House.Tools.Character.Saint's left arm.Handle",
+    "Workspace.Map.House.Tools.Character.Winch handle.Handle",
+    "Workspace.Map.House.Tools.Character.Tranquilizer dart.Handle",
+    "Workspace.Map.House.Tools.Character.Tranquilizer dart.Handle",
+    "Workspace.Map.House.Tools.Character.Tranquilizer dart.Handle",
+}
+
+--wait(2) -- Increased wait time to 2 seconds to allow the game to load
+
+for _, path in ipairs(itemPaths) do
+    local object = findObjectByPath(path)
+    if object then
+        -- Highlight effect
+        local highlight = Instance.new("Highlight")
+        highlight.Parent = object
+        highlight.FillColor = Color3.fromRGB(0, 255, 0) -- Green color
+        highlight.OutlineColor = Color3.fromRGB(0, 255, 0) -- Green outline
+        highlight.OutlineTransparency = 0
+        highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+
+        -- Text label above the object
+        local billboardGui = Instance.new("BillboardGui")
+        billboardGui.Parent = object
+billboardGui.Size = UDim2.new(5, 5, 5, 5)
+        billboardGui.StudsOffset = Vector3.new(0, 2, 0) -- Adjust the offset to position the text above the object
+        billboardGui.AlwaysOnTop = true
+
+        local textLabel = Instance.new("TextLabel")
+        textLabel.Parent = billboardGui
+        textLabel.Size = UDim2.new(1, 0, 1, 0)
+        textLabel.BackgroundTransparency = 1
+        textLabel.TextColor3 = Color3.new(1, 1, 1) -- White color
+        textLabel.TextScaled = true
+
+        if object.Name == "Handle" and object.Parent then
+            textLabel.Text = object.Parent.Name -- Display the parent's name
+        else
+            textLabel.Text = object.Name -- Display the object's name
+        end
+    else
+        showNotification("Object not found: " .. path)
+    end
+end
+
+end)
+
+players.PlayerRemoving:Connect(function(player)
+    if player.Character and player.Character:FindFirstChild(player.Name .. "_ESP") then
+        player.Character[player.Name .. "_ESP"]:Destroy()
+    end
+end)
+
+players.PlayerAdded:Connect(function(player)
+    player.CharacterAdded:Connect(function(character)
+        if character:FindFirstChild("HumanoidRootPart") then
+            if not character:FindFirstChild(player.Name .. "_ESP") then
+                createESPBox(player)
+            end
+        end
+    end)
+end)
+
+-- Create the toggle button
+createButton(frame, UDim2.new(0.5, -245, 1, -45), UDim2.new(0, 100, 0, 40), "Toggle Menu", Color3.fromRGB(114, 137, 218), Color3.fromRGB(255, 255, 255), function()
+    frame.Visible = not frame.Visible
+end)
+
+-- Create the delete button 
+createButton(frame, UDim2.new(0.5, 70, 1, -45), UDim2.new(0, 100, 0, 40), "Delete GUI", Color3.fromRGB(255, 0, 0), Color3.fromRGB(255, 255, 255), function()
+    screenGui:Destroy()
+end)
+
+-- Start the animations
+animateBackground()
+animateRainbow()
