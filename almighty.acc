@@ -1276,7 +1276,37 @@ local player = game.Players.LocalPlayer
     end
 end)
 
-createButton(frame, UDim2.new(0.5, -35, 1, -135), UDim2.new(0, 100, 0, 40), "TEXST", Color3.fromRGB(31, 115, 33), Color3.fromRGB(255, 255, 255), function()
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+local platformPart = workspace.Train.Platform.Part
+
+-- Переменная для отслеживания состояния отталкивания
+local isRepulsionEnabled = false
+
+-- Функция для отталкивания персонажа
+local function repelCharacter()
+    if not isRepulsionEnabled then return end
+
+    -- Проверяем расстояние до платформы
+    local distance = (humanoidRootPart.Position - platformPart.Position).Magnitude
+    if distance < 10 then -- Если персонаж находится ближе 10 юнитов
+        -- Поднимаем персонажа на 10 единиц вверх
+        humanoidRootPart.CFrame = humanoidRootPart.CFrame + Vector3.new(0, 10, 0)
+    end
+end
+
+-- Подключаем отталкивание к циклу обновления
+game:GetService("RunService").Heartbeat:Connect(repelCharacter)
+
+createButton(frame, UDim2.new(0.5, -35, 1, -135), UDim2.new(0, 100, 0, 40), "11111111111", Color3.fromRGB(31, 115, 33), Color3.fromRGB(255, 255, 255), function()
+
+isRepulsionEnabled = not isRepulsionEnabled -- Переключаем состояние отталкивания
+    if isRepulsionEnabled then
+        showNotification("Отталкивание включено")
+    else
+        showNotification("Отталкивание выключено")
+    end
 
 end)
 
