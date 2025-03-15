@@ -1138,7 +1138,13 @@ local ESP_CONFIG = {
 
 -- Цвета для специальных предметов
 local SPECIAL_COLORS = {
-    GoldPlate = Color3.fromRGB(255, 215, 0), -- Золотой для goldbar
+Werewolf = Color3.fromRGB(255, 0, 125),
+Runner = Color3.fromRGB(74, 12, 0),
+Vampire = Color3.fromRGB(255, 0, 0),
+    Walker = Color3.fromRGB(74, 12, 0),
+    Crucifix = Color3.fromRGB(255, 215, 0),
+    GoldStatue = Color3.fromRGB(255, 215, 0),
+    GoldPlate = Color3.fromRGB(255, 215, 0), -- Золотой для GoldPlate
     Bald = Color3.fromRGB(255, 0, 0), -- Красный для bald
     GoldBar = Color3.fromRGB(255, 215, 0), -- Золотой для goldbar
     Moneybag = Color3.fromRGB(0, 255, 0), -- Зелёный для Moneybag
