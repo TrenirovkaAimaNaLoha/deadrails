@@ -920,6 +920,10 @@ end)
 local autoPickupEnabled = false
 
 -- Функция для автоматического подбора предметов
+
+
+local autoPickupEnabled = false
+
 local function autoPickup()
     while autoPickupEnabled do
         local closestItem = nil
@@ -938,7 +942,7 @@ local function autoPickup()
             end
 
             -- Если найден ближайший предмет и он в пределах дистанции
-            if closestItem and closestDistance < 40 then -- Дистанция 20 (можно изменить)
+            if closestItem and closestDistance < 40 then -- Дистанция 40 (можно изменить)
                 local args = {
                     [1] = closestItem
                 }
@@ -950,6 +954,21 @@ local function autoPickup()
     end
 end
 
+local function toggleAutoPickup()
+    autoPickupEnabled = not autoPickupEnabled
+    if autoPickupEnabled then
+        showNotification("Auto Pickup (ON)")
+        coroutine.wrap(autoPickup)()
+    else
+        showNotification("Auto Pickup (OFF)")
+    end
+end
+
+UserInputService.InputBegan:Connect(function(input, gameProcessedEvent)
+    if input.KeyCode == Enum.KeyCode.R and not gameProcessedEvent then
+        toggleAutoPickup()
+    end
+end)
 -- Включение/выключение автоматического подбора
 autoPickupButton.MouseButton1Click:Connect(function()
     autoPickupEnabled = not autoPickupEnabled
@@ -1069,7 +1088,7 @@ local player = game.Players.LocalPlayer
 
 UserInputService.InputBegan:Connect(function(input, gameProcessedEvent)
     if input.KeyCode == Enum.KeyCode.E and not gameProcessedEvent then
-        game["Workspace"][player.Name]["Bandage"]["Use"]:FireServer(unpack(args))
+        game.Workspace[player.Name]["Bandage"]["Use"]:FireServer(unpack(args))
     end
 end)
 
@@ -1112,7 +1131,6 @@ local RunService = game:GetService("RunService")
 -- Конфигурация ESP
 local ESP_CONFIG = {
     DEFAULT_COLOR = Color3.fromRGB(145, 145, 145), -- Серый цвет по умолчанию
-    TEXT_COLOR = Color3.fromRGB(255, 255, 255), -- Белый цвет текста
     TEXT_STROKE_COLOR = Color3.fromRGB(0, 0, 0), -- Черный обводка текста
     TEXT_SIZE = 15, -- Размер текста
     BILLBOARD_OFFSET = Vector3.new(0, -2, 0) -- Смещение BillboardGui над объектом
@@ -1170,7 +1188,7 @@ local function createESP(item)
     nameLabel.Size = UDim2.new(1, 0, 1, 0)
     nameLabel.BackgroundTransparency = 1
     nameLabel.Text = item.Name
-    nameLabel.TextColor3 = ESP_CONFIG.TEXT_COLOR
+    nameLabel.TextColor3 = highlightColor
     nameLabel.TextStrokeColor3 = ESP_CONFIG.TEXT_STROKE_COLOR
     nameLabel.TextStrokeTransparency = 0
     nameLabel.TextSize = ESP_CONFIG.TEXT_SIZE
@@ -1208,7 +1226,9 @@ end
 local function onChildAdded(child)
     if child.Parent == Workspace.RuntimeItems then
         -- Ждем, пока объект полностью загрузится
-        child:WaitForChild("PrimaryPart", 10) -- Ожидаем PrimaryPart (если это Model)
+        if child:IsA("Model") then
+            child:WaitForChild("PrimaryPart", 10) -- Ожидаем PrimaryPart (если это Model)
+        end
         createESP(child)
     end
 end
@@ -1252,12 +1272,30 @@ local vampireHumanoidRootPart = vampire:WaitForChild("HumanoidRootPart")
 local distanceThreshold = 13 -- Расстояние, на котором игрок поднимается вверх
 local raiseHeight = 15 -- Высота, на которую поднимается игрок
 
-RunService.Heartbeat:Connect(function()
-    local distance = (humanoidRootPart.Position - vampireHumanoidRootPart.Position).Magnitude
-    if distance <= distanceThreshold then
-        humanoidRootPart.CFrame = humanoidRootPart.CFrame + Vector3.new(0, raiseHeight, 0)
+local antiVampireEnabled = false
+local connection
+
+local function toggleAntiVampire()
+    if antiVampireEnabled then
+        -- Отключаем "Anti vampire"
+        if connection then
+            connection:Disconnect()
+            connection = nil
+        end
+        antiVampireEnabled = false
+        print("Anti vampire выключен")
+    else
+        -- Включаем "Anti vampire"
+        connection = RunService.Heartbeat:Connect(function()
+            local distance = (humanoidRootPart.Position - vampireHumanoidRootPart.Position).Magnitude
+            if distance <= distanceThreshold then
+                humanoidRootPart.CFrame = humanoidRootPart.CFrame + Vector3.new(0, raiseHeight, 0)
+            end
+        end)
+        antiVampireEnabled = true
+        print("Anti vampire включен")
     end
-end)
+end
 
 end)
 
